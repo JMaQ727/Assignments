@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    width: 800px;
+    height: 900px;
+    margin: 0 auto;
+}
+
+#chicago {
+    border: 1px solid black;
+    width: 800px;
+    height: 450px;
+}
+
+#czech {
+    border: 1px solid black;
+    width: 800px;
+    height: 450px;
+}
+
+#chicagotop, #chicagobot {
+    background-color: white;
+    height: 75px;
+}
+#chicagomid {
+    height: 150px;
+    background-color: white;
+    border-top: 75px solid #5f99fb;
+    border-bottom: 75px solid #5f99fb;
+}
+
+#triangle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 225px solid transparent;
+    border-bottom: 225px solid transparent;
+    border-left: 400px solid #25437d;
+}
+
+#czechtop {
+    background-color: white;
+    height: 225px;
+    width: 800px;
+}
+
+#czechbot {
+    background-color: #bf2e1b;
+    height: 225px;
+    width: 800px;
+}
