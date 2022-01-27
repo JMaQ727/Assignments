@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.usercard {
+    margin: 20px;
+    border: 3px solid lightgray;
+    width: 500px;
+    min-height: 100px;
+}
+
+.main-top {
+    height: 100px;
+    background-color: teal;
+    border-bottom: 3px solid lightgray;
+    position: realtive;
+}
+
+.main-top img {
+    width: 100px;
+    border-radius: 50%;
+    margin-left: 25px;
+    margin-top: 30px;
+    border: 3px solid lightgray;
+}
+
+.main-bot h1, .main-bot h2, .main-bot h3 {
+    margin: 5px;
+}
+
+.main-bot {
+    padding: 20px;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+}
+
+.location img {
+    width: 15px;
+}
