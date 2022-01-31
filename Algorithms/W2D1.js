@@ -41,13 +41,13 @@ var lifesAnswers = [
     "Very doubtful.",
 ];
 
-function eightBall() {
+function eightBall(question) {
     var fortune = Math.random();
     fortune = Math.floor(fortune * lifesAnswers.length);
-    return lifesAnswers[fortune];
+    return `${question} Your fortune is: ${lifesAnswers[fortune]}`;
 }
 
 for (i = 0; i < 100; i++) {
-    var personFortune = eightBall();
-    console.log("Your fortune is: " + personFortune);
+    var personFortune = eightBall("Will I win the lottery?");
+    console.log(personFortune);
 }
