@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>DojoWeather</title>
+    </head>
+    <body>
+        <header>
+            <div class="nav">
+                <h1>DojoWeather</h1>
+                <div class="cities">
+                    <h3 onclick="loading()">Burbank</h3>
+                    <h3 onclick="loading()">Chicago</h3>
+                    <h3 onclick="loading()">Dallas</h3>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <div class="info">
+                <h2>San Jose</h2>
+                <div class="inforight">
+                    <p>show temperature in</p>
+                    <select id="tempchange">
+                        <option value="C">°C</option>
+                        <option value="F">°F</option>
+                    </select>
+                </div>
+            </div>
+            <div class="weather">
+                <div class="forecast">
+                    <h3>Today</h3>
+                    <div class="icon">
+                        <img src="./images/some_rain.png" alt="Some Rain" />
+                    </div>
+                    <p>some rain</p>
+                    <div class="temp">
+                        <p style="color: red" id="test1">24</p>
+                        <p style="color: blue" id="test2">18</p>
+                    </div>
+                </div>
+                <div class="forecast">
+                    <h3>Tomorrow</h3>
+                    <div class="icon">
+                        <img src="./images/some_sun.png" alt="Some Sun" />
+                    </div>
+                    <p>some sun</p>
+                    <div class="temp">
+                        <p style="color: red" id="test3">27</p>
+                        <p style="color: blue" id="test4">19</p>
+                    </div>
+                </div>
+                <div class="forecast">
+                    <h3>Friday</h3>
+                    <div class="icon">
+                        <img src="./images/some_clouds.png" alt="Some Clouds" />
+                    </div>
+                    <p>some clouds</p>
+                    <div class="temp">
+                        <p style="color: red" id="test5">21</p>
+                        <p style="color: blue" id="test6">16</p>
+                    </div>
+                </div>
+                <div class="forecast">
+                    <h3>Saturday</h3>
+                    <div class="icon">
+                        <img src="./images/some_sun.png" alt="Some Sun" />
+                    </div>
+                    <p>some sun</p>
+                    <div class="temp">
+                        <p style="color: red" id="test7">26</p>
+                        <p style="color: blue" id="test8">21</p>
+                    </div>
+                </div>
+            </div>
+            <div class="cookie">
+                <img src="./images/cookie.png" alt="Cookie" />
+                <div class="cookietext">
+                    <h3>Stop! Cookie time</h3>
+                    <p>
+                        We use cookies (sadly not the edible ones) to
+                        personalize content and ads, to provide social media
+                        features and to analyse our traffic.
+                        <a href="#">Read More...</a>
+                    </p>
+                </div>
+                <button onclick="hide(document.querySelector('.cookie'))">I Accept</button>
+            </div>
+        </div>
+        <script src="./script.js"></script>
+    </body>
+</html>

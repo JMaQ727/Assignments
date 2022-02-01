@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap');
+
+:root {
+    --boxcolor: rgb(238, 238, 238)
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fira Sans', sans-serif;
+}
+
+header {
+    background-color: skyblue;
+}
+
+h1 {
+    color: white;
+}
+
+.nav {
+    padding: 10px 0px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+}
+
+.cities {
+    display: flex;
+    justify-content: space-between;
+    gap: 2em;
+    align-items: center;
+    padding: 0 1em;
+}
+
+.cities h3 {
+    color: white;
+    cursor: pointer;
+}
+
+.container { 
+    margin: 0 auto;
+    width: 600px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 0px;
+    border-bottom: 2px solid black;
+}
+
+.inforight {
+    display: flex;
+    justify-content: space-between;
+    gap: .5em;
+    align-items: center;
+}
+
+.weather {
+    margin-top: 1em;
+    display: flex;
+    gap: 1em;
+}
+
+.forecast {
+    background-color: var(--boxcolor);
+    flex: 1;
+    gap: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+}
+
+.icon {
+    border-radius: 50%;
+    background-color: white;
+    width: 75px;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon img {
+    border-radius: 50%;
+    width: 100%;
+}
+
+.temp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.temp p {
+    font-weight: bolder;
+}
+
+.cookie {
+    background-color: var(--boxcolor);
+    margin-top: .5em;
+    border: 2px solid black;
+    padding: .5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cookie img {
+    margin-right: .5em;
+}
+
+button {
+    padding: .2em;
+    width: 150px;
+    border: 2px solid black;
+    background-color: skyblue;
+    color: black;
+    font-weight: bold;
+    box-shadow: 3px 2px black;
+    margin-right: .5em;
+    cursor: pointer;
+}
