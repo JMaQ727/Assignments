@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>Just Dessert</title>
+    </head>
+    <body>
+        <!-- Container to align all content -->
+        <div class="container">
+            <!-- Header start -->
+            <header>
+                <h1>Just<span style="color: #c48626">Dessert</span></h1>
+                <div class="topbtns">
+                    <button class="join" onclick="hide(this)">Join</button>
+                    <button class="login">Login</button>
+                </div>
+            </header>
+            <!-- Header end -->
+            <!-- Area underneath the header start -->
+            <div class="mainsearchbox">
+                <div class="searchbox">
+                    <input
+                        type="text"
+                        placeholder="SEARCH"
+                        id="message"
+                    /><button onclick="search()">GO</button>
+                </div>
+                <div class="mainimages">
+                    <div class="imgbg">
+                        <img src="./images/cake.png" alt="Cake" />
+                        <p>Cakes</p>
+                    </div>
+                    <div class="imgbg">
+                        <img src="./images/ice-cream.png" alt="Ice Cream" />
+                        <p>Ice Cream</p>
+                    </div>
+                    <div class="imgbg">
+                        <img src="./images/cookie.png" alt="Cookies" />
+                        <p>Cookie</p>
+                    </div>
+                    <div class="imgbg">
+                        <img src="./images/pie.png" alt="Pies" />
+                        <p>Pie</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Area underneath header end -->
+            <!-- Main content area start -->
+            <main>
+                <!-- Left portion of main content area -->
+                <div class="mainleft">
+                    <h2>Recipe of the Day</h2>
+                    <img
+                        src="./images/orange-tart.jpg"
+                        alt="Orange Tea Jelly Tart"
+                        class="leftimg"
+                    />
+                    <div class="userlikes">
+                        <div class="usertitle">
+                            <p>Orange Tea Jelly Tart</p>
+                            <p>by: <a href="#">yuripiano</a></p>
+                        </div>
+                        <div class="likes">
+                            <img
+                                src="./images/heart.png"
+                                alt="Like button"
+                                class="heartbtn"
+                                onclick="increase(0)"
+                            />
+                            <p id="change">68</p>
+                        </div>
+                    </div>
+                    <h3><a href="#">See Full Recipe</a></h3>
+                </div>
+                <!-- Right portion of main content area -->
+                <div class="mainright">
+                    <div class="righttop">
+                        <h3>Recommended for you:</h3>
+                    </div>
+                    <div class="rightcontent">
+                        <img src="./images/macarons.jpg" alt="Macaron"
+                        class="rightimgs" />
+                        <div class="userlikes">
+                            <div class="usertitle">
+                                <p>Macarons</p>
+                                <p>by: <a href="#">EmilieW</a></p>
+                            </div>
+                            <div class="likes">
+                                <img
+                                    src="./images/heart.png"
+                                    alt="Like button"
+                                    onclick="increase(1)"
+                                    class="heartbtn"
+                                />
+                                <p id="change2">212</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rightcontent">
+                        <img
+                            src="./images/creme-brulee.jpg"
+                            alt="Creme Brulee"
+                            class="rightimgs"
+                        />
+                        <div class="userlikes">
+                            <div class="usertitle">
+                                <p>Crème Brûlée</p>
+                                <p>by: <a href="#">MarisaG</a></p>
+                            </div>
+                            <div class="likes">
+                                <img
+                                    src="./images/heart.png"
+                                    alt="Like button"
+                                    class="heartbtn"
+                                    onclick="increase(2)"
+                                />
+                                <p id="change3">33</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <!-- Main content area end -->
+        </div>
+        <script src="./script.js"></script>
+    </body>
+</html>
