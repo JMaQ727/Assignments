@@ -10,9 +10,9 @@ sports_directory = {
 z = [ {'x': 10, 'y': 20} ]
 
 x[1][0] = 15
-
-
-
+students[0]["last_name"]  = "Bryant"
+sports_directory["soccer"][0] = "Andres"
+z[0]["y"] = 30
 
 # students = [
 #         {'first_name' :  'Michael', 'last_name' : 'Jordan'},
@@ -34,19 +34,19 @@ x[1][0] = 15
 # iterateDictionary2('first_name', students)
 # iterateDictionary2('last_name', students)
 
-dojo = {
-    'locations': ['San Jose', 'Seattle', 'Dallas', 'Chicago', 'Tulsa', 'DC', 'Burbank'],
-    'instructors': ['Michael', 'Amy', 'Eduardo', 'Josh', 'Graham', 'Patrick', 'Minh', 'Devon']
-}
+# dojo = {
+#     'locations': ['San Jose', 'Seattle', 'Dallas', 'Chicago', 'Tulsa', 'DC', 'Burbank'],
+#     'instructors': ['Michael', 'Amy', 'Eduardo', 'Josh', 'Graham', 'Patrick', 'Minh', 'Devon']
+# }
 
-def printInfo(somedict):
-    for key in somedict:
-        print('----------')
-        print(len(somedict[key]), key.upper())
-        for item in range(0,len(somedict[key])):
-            print(somedict[key][item])
+# def printInfo(somedict):
+#     for key in somedict:
+#         print('----------')
+#         print(len(somedict[key]), key.upper())
+#         for item in range(0,len(somedict[key])):
+#             print(somedict[key][item])
         
 
-printInfo(dojo)
+# printInfo(dojo)
 
 
