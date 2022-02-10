@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Play</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+            }
+
+            .container {
+                margin: 0 auto;
+                width: 700px;
+                text-align: center;
+                padding: 4em;
+            }
+
+            .bigbox {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: 2em 0em;
+                flex-wrap: wrap;
+            }
+
+            .box {
+                background-color: skyblue;
+                border: 2px solid black;
+                width: 100px;
+                height: 100px;
+                margin: 1em 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Welcome!</h1>
+            <div class="bigbox">
+                {% for x in range (0,x) %}
+                <div class="box" style="background-color:{{color}}"></div>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>
