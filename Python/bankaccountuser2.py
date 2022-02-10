@@ -45,5 +45,3 @@ riley.make_deposit(50)
 riley.make_deposit(50)
 riley.make_withdraw(25)
 print(riley.display_user_balance())
-
-
