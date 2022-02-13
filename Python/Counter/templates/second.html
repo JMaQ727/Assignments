@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>Counter</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .container {
+                text-align: center;
+                width: 400px;
+                margin: 0 auto;
+            }
+
+            .bigcheckerbox {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .checker1 {
+                background-color: red;
+                width: 50px;
+                height: 50px;
+            }
+
+            .checker2 {
+                background-color: black;
+                width: 50px;
+                height: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Counter</h1>
+            <div class="bigcheckerbox">
+                <div class="checker1"></div>
+                <div class="checker2"></div>
+                <div class="checker1"></div>
+                <div class="checker2"></div>
+                <div class="checker1"></div>
+                <div class="checker2"></div>
+                <div class="checker1"></div>
+                <div class="checker2"></div>
+                {% for x in range (1,x + 1) %} 
+                    {% if ((x > 1) and (x % 2 == 0)) %}
+                <div class="checker2"></div>
+                <div class="checker1"></div>
+                <div class="checker2"></div>
+                <div class="checker1"></div>
+                <div class="checker2"></div>
+                <div class="checker1"></div>
+                <div class="checker2"></div>
+                <div class="checker1"></div>
+                    {% elif ((x > 1) and (x % 2 == 1)) %}
+                    <div class="checker1"></div>
+                <div class="checker2"></div>
+                <div class="checker1"></div>
+                <div class="checker2"></div>
+                <div class="checker1"></div>
+                <div class="checker2"></div>
+                <div class="checker1"></div>
+                <div class="checker2"></div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>
