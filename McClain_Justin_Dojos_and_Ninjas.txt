@@ -1,0 +1,24 @@
+INSERT INTO dojos (name) VALUES ('Chicago');
+INSERT INTO dojos (name) VALUES ('New York');
+INSERT INTO dojos (name) VALUES ('Miami');
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM dojos WHERE name='Chicago';
+DELETE FROM dojos WHERE name='New York';
+DELETE FROM dojos WHERE name='Miami';
+INSERT INTO dojos (name) VALUES ('Seattle');
+INSERT INTO dojos (name) VALUES ('Dallas');
+INSERT INTO dojos (name) VALUES ('Denver');
+INSERT INTO ninjas (first_name, last_name, dojo_id) VALUES ('Bonnie', 'McMurry', 4);
+INSERT INTO ninjas (first_name, last_name, dojo_id) VALUES ('Eren', 'Jaeger', 4);
+INSERT INTO ninjas (first_name, last_name, dojo_id) VALUES ('Selena', 'Gomez', 4);
+INSERT INTO ninjas (first_name, last_name, dojo_id) VALUES ('Zoey', 'McClain', 5);
+INSERT INTO ninjas (first_name, last_name, dojo_id) VALUES ('Gibson', 'McClain', 5);
+INSERT INTO ninjas (first_name, last_name, dojo_id) VALUES ('Maeve', 'McClain', 5);
+INSERT INTO ninjas (first_name, last_name, dojo_id) VALUES ('Naruto', 'Smith', 6);
+INSERT INTO ninjas (first_name, last_name, dojo_id) VALUES ('Ken', 'Kaneki', 6);
+INSERT INTO ninjas (first_name, last_name, dojo_id) VALUES ('Lee', 'Sin', 6);
+SELECT * FROM ninjas WHERE dojo_id = 4
+SELECT * FROM ninjas WHERE dojo_id = 6
+
+
+

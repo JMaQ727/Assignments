@@ -1,0 +1,33 @@
+1. SELECT countries.name, languages.language, languages.percentage
+FROM languages
+JOIN countries
+ON countries.id = languages.country_id
+WHERE language='Slovene'
+ORDER BY percentage DESC
+
+2. 
+
+3. SELECT name, population FROM city WHERE population > 500000 AND CountryCode="MEX" ORDER BY population DESC;
+
+4. SELECT countries.name, languages.language, percentage 
+FROM countries 
+JOIN languages 
+ON countries.id = languages.country_id
+WHERE percentage > 89
+ORDER BY percentage DESC
+
+5. SELECT name, surfacearea, population FROM country WHERE (population > 100000 AND SurfaceArea < 501);
+
+6. SELECT name, GovernmentForm, capital, LifeExpectancy FROM country 
+WHERE (GovernmentForm = 'Constitutional Monarchy' AND capital > 200 AND lifeexpectancy > 75);
+
+7. SELECT countries.name, cities.name, cities.district, cities.population
+FROM countries
+JOIN cities
+ON countries.id = cities.country_id
+WHERE cities.population > 500000 AND district='Buenos Aires'
+
+8. SELECT region, COUNT(name)
+FROM countries
+GROUP BY region
+ORDER BY COUNT(name) DESC;
