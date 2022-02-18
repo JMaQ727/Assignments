@@ -17,7 +17,7 @@ function isPalindrome(str) {
     return true;
 }
 
-console.log(isPalindrome("raDar"));
+console.log(isPalindrome("rAdAr"));
 
 // what are our test cases?
 
@@ -49,4 +49,4 @@ function longestPalindrome(str) {
     return longp
 }
 
-console.log(longestPalindrome('I like to drive the racecar extremely fast'))
+console.log(longestPalindrome('qwerttttttreqwerewy'))

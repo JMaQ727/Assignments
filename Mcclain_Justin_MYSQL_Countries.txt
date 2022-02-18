@@ -5,9 +5,18 @@ ON countries.id = languages.country_id
 WHERE language='Slovene'
 ORDER BY percentage DESC
 
-2. 
+2. SELECT countries.name, COUNT(country_id) as cities
+FROM countries
+JOIN cities
+ON countries.id = cities.country_id
+GROUP BY countries.id
+ORDER BY cities DESC;
 
-3. SELECT name, population FROM city WHERE population > 500000 AND CountryCode="MEX" ORDER BY population DESC;
+3. SELECT name, population, country_id
+FROM cities
+WHERE population > 500000 
+AND country_id="136" 
+ORDER BY population DESC
 
 4. SELECT countries.name, languages.language, percentage 
 FROM countries 
