@@ -1,5 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
-# burger.py
+
 class User:
     def __init__(self,data):
         self.id = data['id']
