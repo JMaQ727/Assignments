@@ -29,4 +29,5 @@ def getmembers(dojo_id):
         'dojo_id': dojo_id
     }
     ninjas = Ninja.get_ninja_dojo(data)
-    return render_template('members.html', ninjas = ninjas)
+    dojos = Dojo.get_one_dojo(data)
+    return render_template('members.html', ninjas = ninjas, dojos = dojos)

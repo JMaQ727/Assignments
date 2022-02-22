@@ -22,3 +22,12 @@ class Dojo:
         query = "INSERT INTO dojos (name) VALUES (%(dojoname)s);"
         results = connectToMySQL('dojos_and_ninjas_schema').query_db(query, data)
         return results
+    
+    @classmethod
+    def get_one_dojo(cls, data):
+        query = "SELECT * FROM dojos WHERE id=%(dojo_id)s;"
+        results = connectToMySQL('dojos_and_ninjas_schema').query_db(query, data)
+        dojos = []
+        for dojo in results:
+            dojos.append(Dojo(dojo))
+        return dojos
