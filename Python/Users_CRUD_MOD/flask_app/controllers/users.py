@@ -16,6 +16,14 @@ def create_user():
 def create():
     return render_template('/create.html')
 
+@app.route('/<int:user_id>/edit')
+def edit(user_id):
+    data = {
+        'id': user_id
+    }
+    user = User.get_one_user(data)
+    return render_template('/edit.html', user = user)
+
 @app.route('/<int:user_id>/update', methods=['POST'])
 def update_user(user_id):
     data = {
@@ -26,14 +34,6 @@ def update_user(user_id):
     }
     User.update_user(data)
     return redirect('/')
-
-@app.route('/<int:user_id>/edit')
-def edit(user_id):
-    data = {
-        'id': user_id
-    }
-    user = User.get_one_user(data)
-    return render_template('/edit.html', user = user)
 
 @app.route('/<int:user_id>/delete')
 def delete(user_id):

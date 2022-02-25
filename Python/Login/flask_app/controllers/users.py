@@ -30,12 +30,12 @@ def login():
     if not user:
         flash('Email does not exist')
         return redirect('/')
-    print('email is good********************************')
     if not bcrypt.check_password_hash(user.password, request.form['password']):
         flash("Password is incorrect")
-    print('password is good*****************************')
     session['user_email'] = user.email
     session['user_name'] = user.first_name
+    session['user_id'] = user.id
+    print("logged in")
     return redirect('/success')
 
 @app.route('/success')
