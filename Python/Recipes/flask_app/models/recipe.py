@@ -38,6 +38,15 @@ class Recipe():
         recipe = Recipe(result[0])
         return recipe
 
+    @classmethod
+    def update_recipe(cls,data):
+        query = "UPDATE recipes SET description = name = %(name)s, description = %(description)s, instructions = %(instructions)s, overunder = %(overunder)s WHERE id = %(id)s;"
+        connectToMySQL('recipes_schema').query_db(query, data)
+
+    @classmethod
+    def delete_recipe(cls, data):
+        query = "DELETE FROM recipes WHERE id=%(id)s;"
+        connectToMySQL('recipes_schema').query_db(query, data)
 
     @staticmethod
     def validate_recipe(data):
