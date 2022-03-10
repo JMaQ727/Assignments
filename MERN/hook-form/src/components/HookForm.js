@@ -15,14 +15,29 @@ const HookForm = () => {
     <div>
         <label htmlFor="">First Name:</label>
         <input type="text" name="" id="" class="form-control" onChange={(e)=>setFname(e.target.value)}/>
+        {
+            fname.length<2 && fname.length > 0? <p>First Name must be at least 2 characters</p>: null
+        }
         <label htmlFor="">Last Name:</label>
         <input type="text" name="" id="" class="form-control" onChange={(e)=>setLname(e.target.value)}/>
+        {
+            lname.length<2 && lname.length>0? <p>Last Name must be at least 2 characters</p>: null
+        }
         <label htmlFor="">Email:</label>
         <input type="text" name="" id="" class="form-control" onChange={(e)=>setEmail(e.target.value)}/>
+        {
+            email.length<5 && email.length>0? <p>Email must be at least 5 characters</p>: null
+        }
         <label htmlFor="">Password:</label>
         <input type="password" name="" id="" class="form-control" onChange={(e)=>setPassword(e.target.value)}/>
+        {
+            password.length<8 && password.length > 0? <p>Password must be at least 8 characters</p>: null
+        }
         <label htmlFor="">Confirm Password:</label>
         <input type="password" name="" id="" class="form-control" onChange={(e)=>setConfirm(e.target.value)}/>
+        {
+            confirm!=password && confirm.length>0? <p>Passwords must match</p>: null
+        }
     </div>
     <div class="mt-3">
         <h3>Your Form Data</h3>
