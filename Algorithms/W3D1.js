@@ -34,7 +34,7 @@ function rotateArr(arr, shiftBy) {
     return arr;
 }
 
-// console.log(rotateArr(['hello', 'good morning', 'hey', 'how goes it', 'Guten Tag'], 2))
+console.log(rotateArr(['hello', 'good morning', 'hey', 'how goes it', 'Guten Tag'], 2))
 // should print out ['how goes it', 'Guten Tag', 'hello', 'good morning', 'hey']
 console.log(rotateArr([1, 2, 3, 4, 5, 6, 7, 8, 9], -2))
 console.log(rotateArr([1, 2, 3, 4, 5, 6, 7, 8, 9], -5))

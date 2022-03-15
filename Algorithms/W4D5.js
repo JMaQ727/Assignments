@@ -16,6 +16,7 @@ function rotateString(str, distance) {
     let output = "";
     let newarr = str.split("");
     distance = distance % newarr.length;
+    console.log(distance)
     if (distance < 0) {
         distance = newarr.length + distance;
     }
@@ -32,13 +33,13 @@ function rotateString(str, distance) {
 }
 
 // console.log(rotateString("Hello world!", 1))
-// console.log(rotateString("Hello world!", 3))
-// console.log(rotateString("Hello world!", 5))
-// console.log(rotateString("Hello world!", 7))
-// console.log(rotateString("Hello world!", 119))
-// console.log(rotateString("Hello world!", -1))
-// console.log(rotateString("Hello world!", -2))
-// console.log(rotateString("Hello world!", -3))
+console.log(rotateString("Hello world!", 3))
+console.log(rotateString("Hello world!", 5))
+console.log(rotateString("Hello world!", 7))
+console.log(rotateString("Hello world!", 119))
+console.log(rotateString("Hello world!", -1))
+console.log(rotateString("Hello world!", -2))
+console.log(rotateString("Hello world!", -3))
 
 // function rotateArr(arr, shiftBy) {
 //     shiftBy = shiftBy % arr.length;
@@ -68,23 +69,23 @@ function rotateString(str, distance) {
 // this is brute forceable, but there is a clever way of solving this:
 // do the brute force algorithm first, then do another attempt
 
-function isRotation(str, original) {
-    if (str == original) {
-        return true
-    }
-    if (str.length != original.length) {
-        return false
-    }
-    for (var i = 0; i < str.length; i++) {
-        if (rotateString(str, i) == original){
-            return true
-        }
-    }
-    return false
-}
+// function isRotation(str, original) {
+//     if (str == original) {
+//         return true
+//     }
+//     if (str.length != original.length) {
+//         return false
+//     }
+//     for (var i = 0; i < str.length; i++) {
+//         if (rotateString(str, i) == original){
+//             return true
+//         }
+//     }
+//     return false
+// }
 
-console.log(isRotation("abcd", "cdab"));
-console.log(isRotation("Hello! My name is Ryan!Hello! It's nice to meet you!", "e is Ryan!Hello! It's nice to meet you!Hello! My nam"));
-console.log(isRotation("a", "a"));
-console.log(isRotation("", ""));
-console.log(isRotation("ese examples suckTh", "These examples suck"))
+// console.log(isRotation("abcd", "cdab"));
+// console.log(isRotation("Hello! My name is Ryan!Hello! It's nice to meet you!", "e is Ryan!Hello! It's nice to meet you!Hello! My nam"));
+// console.log(isRotation("a", "a"));
+// console.log(isRotation("", ""));
+// console.log(isRotation("ese examples suckTh", "These examples suck"))
