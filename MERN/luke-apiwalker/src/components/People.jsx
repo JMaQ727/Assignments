@@ -18,11 +18,11 @@ const People = () =>{
                         setHome(response.data)
                     })
                     .catch((err)=> {
-                        console.log("Error when fetching 2--->", err)
+                        console.log("Error when fetching --->", err)
                     })   
             })       
             .catch((err)=> {
-                console.log("Error when fetching --->", err)
+                console.log("Error when fetching 2 --->", err)
                 history.push("/error")
             })
     },[id])
