@@ -40,4 +40,10 @@ app.get("/api/company", (req, res) => {
     res.json({fakeCompany})
 })
 
+app.get("/api/user/company", (req, res) => {
+    let fakeUser = new User();
+    let fakeCompany = new Company();
+    res.json({fakeCompany, fakeUser})
+})
+
 app.listen( port, () => console.log(`Listening on port: ${port}`) );
