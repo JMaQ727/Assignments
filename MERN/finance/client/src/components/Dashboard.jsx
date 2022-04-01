@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
+
 const Dashboard = () => {
     let [name, setName] = useState("");
     let [category, setCategory] = useState("");
@@ -13,6 +14,7 @@ const Dashboard = () => {
     let [transactions, setTransactions] = useState([]);
     let [formErrors, setFormErrors] = useState({});
     const history = useHistory();
+    var moment = require('moment');
     useEffect(() => {
         axios
             .get("http://localhost:8000/api/users/getLoggedInUser", {
@@ -119,7 +121,7 @@ const Dashboard = () => {
                         <p>
                             <em>{tObj.category}</em>
                         </p>
-                        <p>{tObj.date.slice(0, 10)}</p>
+                        <p>{moment(tObj.date).format("MMMM Do, YYYY")}</p>
                     </div>
                     <hr />
                 </>
