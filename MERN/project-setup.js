@@ -27,6 +27,16 @@ require("./server/routes/___.routes")(app)
     
 app.listen(port, () => console.log(`Listening on port: ${port}`) );
 
+//model 
+const mongoose = require('mongoose');
+
+const ____Schema = new mongoose.Schema({
+
+})
+
+const ____ = mongoose.model('____', ____Schema);
+module.exports = ____;
+
 //controller
 const ____ = require("../model/____.model");
 
@@ -40,13 +50,3 @@ const _____Controller = require('../controller/controller.file.name');
 module.exports = function(app){
     app.get('/api', _____Controller.index);
 }
-
-//model 
-const mongoose = require('mongoose');
-
-const ____Schema = new mongoose.Schema({
-
-})
-
-const ____ = mongoose.model('____', ____Schema);
-module.exports = ____;
