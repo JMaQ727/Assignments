@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    gap: 3em;
+    height: 100vh;
+}
+
+.leftlogin {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    align-items: flex-start;
+    padding: 3em;
+}
+
+.leftlogin p {
+    margin-top: 1em;
+    letter-spacing: .02em;
+}
+
+.leftlogin h2 {
+    margin-bottom: 1em;
+}
+
+.rightlogin {
+    width: calc(100vw - 350px);
+    background-image: url(../public/images/box.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+/* DASHBOARD */
+
+.left {
+    width: 250px;
+    min-height: 300px;
+    background-color: #3c689b;
+    padding: 1em;
+}
+
+.left button {
+    background-color: #f79e1c !important;
+}
+
+.settings {
+    gap: .25em;
+}
+
+.leftcontent {
+    max-height: 800px;
+}
+
+.leftcontent p {
+    color: white;
+}
+
+.top {
+    width: 100%;
+    height: 225px;
+    background-image: url(../public/images/banner.jpg);
+    background-position: center;
+    background-size: cover; 
+}
+
+.top h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5em;
+    color: white;
+    margin-left: 1em;
+    text-shadow: 2px 2px 12px rgba(0,0,0,0.67);
+}
+
+.right {
+    width: 100%;
+    position: relative;
+    min-height: 300px;
+    background-color: whitesmoke;
+}
+
+.middle {
+    background-color: whitesmoke;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.bottom {
+    background-color: whitesmoke;
+    min-height: 300px;
+}
+
+.float {
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.35) 0px 5px 15px;
+}
+
+.contentsquare {
+    background-color: white;
+    width: 90%;
+    min-height: 200px;
+    padding: 1.5em;
+    box-shadow: rgba(99, 99, 99, 0.35) 0px 5px 15px;
+}
+
+.contenttop {
+    margin-bottom: 2em;
+}
+
+.sorting {
+    gap: .5em;
+}
