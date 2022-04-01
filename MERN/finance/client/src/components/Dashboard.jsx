@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
 
@@ -136,7 +136,7 @@ const Dashboard = () => {
                 <div className="left">
                     <div className="leftcontent d-flex flex-column justify-content-between">
                         <img src="/images/logo.png" alt="" />
-                        <div className="leftcontentnav d-flex flex-column mt-3 mb-3 align-items-center">
+                        <div className="leftcontentnav d-flex flex-column mt-3 mb-3 ms-3">
                             <p>Dashboard</p>
                             <p>Something Else</p>
                             <p>Settings</p>
