@@ -6,7 +6,7 @@ import Dashboard from "./components/Dashboard";
 function App() {
     return (
         <BrowserRouter>
-            <div>
+            <div className="fullpage">
                 <Switch>
                     <Route exact path="/">
                         <Login/>

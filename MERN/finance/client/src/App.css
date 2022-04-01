@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+.fullpage {
+    background-color: whitesmoke !important;
+}
+
 .content {
     display: flex;
     justify-content: center;
@@ -48,14 +52,6 @@
     background-color: #f79e1c !important;
 }
 
-.settings {
-    gap: .25em;
-}
-
-.leftcontent {
-    max-height: 800px;
-}
-
 .leftcontent p {
     color: white;
 }
@@ -72,7 +68,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: 5em;
     color: white;
-    margin-left: 1em;
+    margin-left: .55em;
     text-shadow: 2px 2px 12px rgba(0,0,0,0.67);
 }
 
@@ -85,8 +81,8 @@
 
 .middle {
     background-color: whitesmoke;
-    margin-top: 2em;
-    margin-bottom: 2em;
+    margin-top: 4em;
+    margin-bottom: 4em;
 }
 
 .bottom {
@@ -95,10 +91,26 @@
 }
 
 .float {
-    width: 200px;
+    width: 275px;
     height: 200px;
     background-color: white;
     box-shadow: rgba(99, 99, 99, 0.35) 0px 5px 15px;
+    position: absolute;
+}
+
+.float1 {
+    left: 52px;
+    top: 120px;
+}
+
+.float2 {
+    right: 385px;
+    top: 120px;
+}
+
+.float3 {
+    right: 52px;
+    top: 120px;
 }
 
 .contentsquare {
@@ -111,6 +123,10 @@
 
 .contenttop {
     margin-bottom: 2em;
+}
+
+.contentdata p {
+    margin-bottom: 0px !important;
 }
 
 .sorting {

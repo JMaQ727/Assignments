@@ -8,7 +8,7 @@ const Dashboard = () => {
     let [category, setCategory] = useState("");
     let [price, setPrice] = useState("");
     let [date, setDate] = useState("");
-    let [refresh, setRefresh] = useState(false)
+    let [refresh, setRefresh] = useState(false);
     let [loggedInUser, setLoggedInUser] = useState({});
     let [transactions, setTransactions] = useState([]);
     let [formErrors, setFormErrors] = useState({});
@@ -80,53 +80,51 @@ const Dashboard = () => {
                 console.log("errrr logging out", err);
             });
     };
-    const nameSort = () =>{
-        let nameSortedData = [...transactions].sort((a,b) => {
-            return a.name.charAt(0).toUpperCase() > b.name.charAt(0).toUpperCase() ? 1 : -1
-        })
-        setTransactions(nameSortedData)
-    }
-    const priceSort = () =>{
-        let priceSortedData = [...transactions].sort((a,b) => {
-            return a.price > b.price ? 1 : -1
-        })
-        setTransactions(priceSortedData)
-    }
+    const nameSort = () => {
+        let nameSortedData = [...transactions].sort((a, b) => {
+            return a.name.charAt(0).toUpperCase() >
+                b.name.charAt(0).toUpperCase()
+                ? 1
+                : -1;
+        });
+        setTransactions(nameSortedData);
+    };
+    const priceSort = () => {
+        let priceSortedData = [...transactions].sort((a, b) => {
+            return a.price > b.price ? 1 : -1;
+        });
+        setTransactions(priceSortedData);
+    };
     const [pageNumber, setPageNumber] = useState(0);
     const usersPerPage = 5;
     const pagesVisited = pageNumber * usersPerPage;
     const pageCount = Math.ceil(transactions.length / usersPerPage);
     const displayTransactions = transactions
-    .slice(pagesVisited, pagesVisited + usersPerPage)
-    .map((tObj) => {
-        return (
-            <>
-                <div className="row mb-3">
-                    <div className="col d-flex flex-column">
-                        <p><b>{tObj.name
-                            .charAt(0)
-                            .toUpperCase() +
-                            tObj.name.slice(1)}</b></p>
-                        <p><em>{tObj.category}</em></p>
-                    </div>
-                    <div className="col text-end d-flex flex-column">
-                        <p style={{fontSize: "25px"}}>
-                            $
-                            {(
-                                Math.round(
-                                    tObj.price * 100
-                                ) / 100
-                            ).toFixed(2)}
+        .slice(pagesVisited, pagesVisited + usersPerPage)
+        .map((tObj) => {
+            return (
+                <>
+                    <div className="d-flex justify-content-between align-items-center">
+                        <p style={{ fontSize: "30px" }}>
+                            <b>
+                                {tObj.name.charAt(0).toUpperCase() +
+                                    tObj.name.slice(1)}
+                            </b>
                         </p>
+                        <p style={{ fontSize: "30px" }}>
+                            ${(Math.round(tObj.price * 100) / 100).toFixed(2)}
+                        </p>
+                    </div>
+                    <div className="mb-3 d-flex justify-content-between align-items-center">
                         <p>
-                            {tObj.date.slice(0, 10)}
+                            <em>{tObj.category}</em>
                         </p>
+                        <p>{tObj.date.slice(0, 10)}</p>
                     </div>
-                </div>
-                <hr />
-            </>
-        );
-    })
+                    <hr />
+                </>
+            );
+        });
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     };
@@ -147,27 +145,38 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <div className="right">
-                    <div className="top d-inline-flex align-items-center">
+                    <div className="top d-inline-flex">
                         <h1>Welcome {loggedInUser.firstname}</h1>
+                        <div className="boxholder d-flex justify-content-between">
+                            <div className="float d-flex justify-content-center align-items-center float1">
+                                <p>GRAPH</p>
+                            </div>
+                            <div className="float d-flex justify-content-center align-items-center float2">
+                                <p>GRAaaPH</p>
+                            </div>
+                            <div className="float d-flex justify-content-center align-items-center float3">
+                                <p>GRAPH</p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="middle d-flex justify-content-around">
-                        <div className="float d-flex justify-content-center align-items-center">
-                            <p>GRAPH</p>
-                        </div>
-                        <div className="float d-flex justify-content-center align-items-center">
-                            <p>GRAPH</p>
-                        </div>
-                        <div className="float d-flex justify-content-center align-items-center">
-                            <p>GRAPH</p>
-                        </div>
-                    </div>
+                    <div className="middle d-flex justify-content-around"></div>
                     <div className="bottom d-flex justify-content-center">
                         <div className="contentsquare">
                             <div className="contenttop d-flex justify-content-between">
                                 <h3>Transactions</h3>
                                 <div className="sorting d-flex">
-                                    <button className="btn btn-success" onClick={nameSort}>Sort by Name</button>
-                                    <button className="btn btn-success" onClick={priceSort}>Sort by Price</button>
+                                    <button
+                                        className="btn btn-success"
+                                        onClick={nameSort}
+                                    >
+                                        Sort by Name
+                                    </button>
+                                    <button
+                                        className="btn btn-success"
+                                        onClick={priceSort}
+                                    >
+                                        Sort by Price
+                                    </button>
                                 </div>
                                 <button
                                     type="button"
@@ -188,7 +197,9 @@ const Dashboard = () => {
                                     marginPagesDisplayed={2}
                                     pageRangeDisplayed={3}
                                     onPageChange={changePage}
-                                    containerClassName={"pagination justify-content-center"}
+                                    containerClassName={
+                                        "pagination justify-content-center"
+                                    }
                                     pageClassName={"page-item"}
                                     pageLinkClassName={"page-link"}
                                     previousClassName={"page-item"}

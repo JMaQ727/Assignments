@@ -147,19 +147,21 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <div className="right">
-                    <div className="top d-inline-flex align-items-center">
+                    <div className="top d-inline-flex">
                         <h1>Welcome {loggedInUser.firstname}</h1>
+                        <div className="boxholder d-flex justify-content-between">
+                            <div className="float d-flex justify-content-center align-items-center float1">
+                                <p>GRAPH</p>
+                            </div>
+                            <div className="float d-flex justify-content-center align-items-center float2">
+                                <p>GRAaaPH</p>
+                            </div>
+                            <div className="float d-flex justify-content-center align-items-center float3">
+                                <p>GRAPH</p>
+                            </div>
+                        </div>
                     </div>
                     <div className="middle d-flex justify-content-around">
-                        <div className="float d-flex justify-content-center align-items-center">
-                            <p>GRAPH</p>
-                        </div>
-                        <div className="float d-flex justify-content-center align-items-center">
-                            <p>GRAPH</p>
-                        </div>
-                        <div className="float d-flex justify-content-center align-items-center">
-                            <p>GRAPH</p>
-                        </div>
                     </div>
                     <div className="bottom d-flex justify-content-center">
                         <div className="contentsquare">
