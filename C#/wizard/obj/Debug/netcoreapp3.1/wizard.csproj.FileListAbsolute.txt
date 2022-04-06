@@ -1,0 +1,13 @@
+C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\wizard\obj\Debug\netcoreapp3.1\wizard.csprojAssemblyReference.cache
+C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\wizard\obj\Debug\netcoreapp3.1\wizard.AssemblyInfoInputs.cache
+C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\wizard\obj\Debug\netcoreapp3.1\wizard.AssemblyInfo.cs
+C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\wizard\obj\Debug\netcoreapp3.1\wizard.csproj.CoreCompileInputs.cache
+C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\wizard\bin\Debug\netcoreapp3.1\wizard.exe
+C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\wizard\bin\Debug\netcoreapp3.1\wizard.deps.json
+C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\wizard\bin\Debug\netcoreapp3.1\wizard.runtimeconfig.json
+C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\wizard\bin\Debug\netcoreapp3.1\wizard.runtimeconfig.dev.json
+C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\wizard\bin\Debug\netcoreapp3.1\wizard.dll
+C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\wizard\bin\Debug\netcoreapp3.1\wizard.pdb
+C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\wizard\obj\Debug\netcoreapp3.1\wizard.dll
+C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\wizard\obj\Debug\netcoreapp3.1\wizard.pdb
+C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\wizard\obj\Debug\netcoreapp3.1\wizard.genruntimeconfig.cache

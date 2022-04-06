@@ -98,7 +98,7 @@ const Dashboard = () => {
         setTransactions(priceSortedData);
     };
     const [pageNumber, setPageNumber] = useState(0);
-    const usersPerPage = 5;
+    const usersPerPage = 10;
     const pagesVisited = pageNumber * usersPerPage;
     const pageCount = Math.ceil(transactions.length / usersPerPage);
     const displayTransactions = transactions
