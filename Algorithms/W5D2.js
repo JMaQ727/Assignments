@@ -78,12 +78,22 @@ class SinglyLinkedList {
             runner = runner.next;
         }
     }
+    average() {
+        var runner = this.head;
+        var output = 0
+        var counter = 0
+        while (runner != null) {
+            output += runner.value
+            counter++
+            runner = runner.next
+        }
+    }
 }
 
 var new_sll = new SinglyLinkedList();
 
 new_sll.addToHead(8);
-new_sll.addToHead(3);
+new_sll.addToHead(4);
 new_sll.addToHead(6);
 new_sll.display(); // 6 - 3 - 8
 new_sll.addToTail(4);
@@ -94,6 +104,7 @@ new_sll.removeFront();
 new_sll.display();
 new_sll.removeBack();
 new_sll.display();
+new_sll.average();
 
 // console.log(new_sll.contains(4)); // true
 // console.log(new_sll.contains(6)); // true
