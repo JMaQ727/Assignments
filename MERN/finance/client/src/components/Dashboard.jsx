@@ -2,6 +2,10 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import {Chart as ChartJS } from 'chart.js/auto';
+import { Doughnut } from "react-chartjs-2";
+import CurrencyInput from 'react-currency-input-field';
+import { toast, ToastContainer } from "react-toastify";
 
 
 const Dashboard = () => {
@@ -13,11 +17,19 @@ const Dashboard = () => {
     let [loggedInUser, setLoggedInUser] = useState({});
     let [transactions, setTransactions] = useState([]);
     let [formErrors, setFormErrors] = useState({});
+    let [ns, setNs] = useState(false);
+    let [ps, setPs] = useState(false);
+    let [billData, setBillData] = useState([]);
+    let [resData, setResData] = useState([]);
+    let [clothData, setClothData] = useState([]);
+    let [rentData, setRentData] = useState([]);
+    let [travelData, setTravelData] = useState([]);
+    let [shopData, setShopData] = useState([]);
+    let [groceryData, setGroceryData] = useState([]);
     const history = useHistory();
     var moment = require('moment');
     useEffect(() => {
-        axios
-            .get("http://localhost:8000/api/users/getLoggedInUser", {
+        axios.get("http://localhost:8000/api/users/getLoggedInUser", {
                 withCredentials: true,
             })
             .then((res) => {
@@ -41,6 +53,91 @@ const Dashboard = () => {
                 history.push("/");
             });
     }, [refresh]);
+    const wtf = () =>{
+        setResData(resData.reduce((a,b)=>a + b, 0))
+        setBillData(billData.reduce((a,b)=>a + b, 0))
+        setClothData(clothData.reduce((a,b)=>a + b, 0))
+        setRentData(rentData.reduce((a,b)=>a + b, 0))
+        setTravelData(travelData.reduce((a,b)=>a + b, 0))
+        setShopData(shopData.reduce((a,b)=>a + b, 0))
+        setGroceryData(groceryData.reduce((a,b)=>a + b, 0))
+        var totalSpending = (resData + billData + clothData + rentData + travelData + shopData + groceryData)
+        console.log(billData)
+        console.log(resData)
+        console.log(clothData)
+        console.log(rentData)
+        console.log(travelData)
+        console.log(shopData)
+        console.log(groceryData)
+    }
+    const getCatSum = async () => {
+        transactions.forEach((mapObj) =>{
+            if (mapObj.category == "Bills") {
+                setBillData(billData => [...billData, mapObj.price])
+            }
+            if (mapObj.category == "Clothing") {
+                setClothData(clothData => [...clothData, mapObj.price])
+            }
+            if (mapObj.category == "Restaurants") {
+                setResData(resData => [...resData, mapObj.price]);
+            }
+            if (mapObj.category == "Groceries") {
+                setGroceryData(groceryData => [...groceryData, mapObj.price])
+            }
+            if (mapObj.category == "Rent/Mortgage") {
+                setRentData(rentData => [...rentData, mapObj.price])
+            }
+            if (mapObj.category == "Shopping") {
+                setShopData(shopData => [...shopData, mapObj.price])
+            }
+            if (mapObj.category == "Travel") {
+                setTravelData(travelData => [...travelData, mapObj.price])
+            }
+        })
+    }
+    const data = {
+        labels: ["Bills", "Clothing", "Restaurants", "Groceries", "Rent/Mortgage", "Shopping", "Travel"],
+        datasets: [{
+            label: "test",
+            data: [billData, clothData, resData, groceryData, rentData, shopData, travelData],
+            backgroundColor: ["rgba(87, 121, 234, 0.6)", "rgba(87, 121, 234, 0.6)", "#ecf0f1", "#50AF95", "#f3ba2f", "#2a71d0"]
+        }]
+    }
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false, 
+        // animation: {
+        //     duration: 3000,
+        //     easing: "easeInBounce",
+        // },
+        title: {
+            display: true,
+            text: "Bar + Line Chart",
+            fontSize: 25,
+        },
+        plugins:{
+            legend: {
+                display: false
+            }
+        }
+    }
+    const theChart = () => {
+        return (
+            <Doughnut data={data} options={options}/>
+            
+        )
+    }
+    const notify = () => {
+        toast.success("Successfully uploaded transaction.", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    };
     const upload = (e) => {
         e.preventDefault();
         let formInfo = {
@@ -59,6 +156,7 @@ const Dashboard = () => {
                     setFormErrors(res.data.errors);
                 } else {
                     console.log("Successfully created transaction", res);
+                    notify();
                     setName("");
                     setCategory("");
                     setPrice("");
@@ -91,12 +189,49 @@ const Dashboard = () => {
         });
         setTransactions(nameSortedData);
     };
+    const reverseNameSort = () => {
+        let nameSortedData = [...transactions].sort((a, b) => {
+            return a.name.charAt(0).toUpperCase() >
+                b.name.charAt(0).toUpperCase()
+                ? -1
+                : 1;
+        });
+        setTransactions(nameSortedData);
+    };
+    const nameHandler = () => {
+        if (ns == false) {
+            nameSort();
+            setNs(true);
+        } 
+        else {
+            reverseNameSort();
+            setNs(false);
+        }
+    }
     const priceSort = () => {
         let priceSortedData = [...transactions].sort((a, b) => {
             return a.price > b.price ? 1 : -1;
         });
         setTransactions(priceSortedData);
+        
     };
+    const reversePriceSort = () => {
+        let priceSortedData = [...transactions].sort((a, b) => {
+            return a.price > b.price ? -1 : 1;
+        });
+        setTransactions(priceSortedData);
+        
+    };
+    const priceHandler = () => {
+        if (ps == false) {
+            priceSort();
+            setPs(true);
+        } 
+        else {
+            reversePriceSort();
+            setPs(false);
+        }
+    }
     const [pageNumber, setPageNumber] = useState(0);
     const usersPerPage = 10;
     const pagesVisited = pageNumber * usersPerPage;
@@ -113,15 +248,21 @@ const Dashboard = () => {
                                     tObj.name.slice(1)}
                             </b>
                         </p>
-                        <p style={{ fontSize: "30px" }}>
-                            ${(Math.round(tObj.price * 100) / 100).toFixed(2)}
-                        </p>
+                        <div className="pricedel d-flex align-items-center">
+                            <p style={{ fontSize: "30px" }}>
+                                ${(Math.round(tObj.price * 100) / 100).toFixed(2)}
+                            </p>
+                            <a href="#" className="material-icons-outlined" style={{fontSize: "12px", textDecoration: "none"}}>delete</a>
+                        </div>
                     </div>
                     <div className="mb-3 d-flex justify-content-between align-items-center">
                         <p>
                             <em>{tObj.category}</em>
                         </p>
-                        <p>{moment(tObj.date).format("MMMM Do, YYYY")}</p>
+                        <div className="editdate d-flex align-items-center">
+                            <p>{moment(tObj.date).format("MMMM Do, YYYY")}</p>
+                            <a href="#" className="material-icons-outlined" style={{fontSize: "12px", textDecoration: "none"}}>mode_edit</a>
+                        </div>
                     </div>
                     <hr />
                 </>
@@ -148,16 +289,19 @@ const Dashboard = () => {
                 </div>
                 <div className="right">
                     <div className="top d-inline-flex">
+                        <ToastContainer />
                         <h1>Welcome {loggedInUser.firstname}</h1>
                         <div className="boxholder d-flex justify-content-between">
                             <div className="float d-flex justify-content-center align-items-center float1">
-                                <p>GRAPH</p>
+                                {theChart()}
                             </div>
                             <div className="float d-flex justify-content-center align-items-center float2">
-                                <p>GRAaaPH</p>
+                                <button onClick={getCatSum}>TEST</button>
+                                {/* {totalSpending? <p>{totalSpending}</p> : ""} */}
                             </div>
                             <div className="float d-flex justify-content-center align-items-center float3">
-                                <p>GRAPH</p>
+                                <button onClick={wtf}>we were gucci</button>
+                                <p>bar chart of monthly total spending</p>
                             </div>
                         </div>
                     </div>
@@ -169,13 +313,13 @@ const Dashboard = () => {
                                 <div className="sorting d-flex">
                                     <button
                                         className="btn btn-success"
-                                        onClick={nameSort}
+                                        onClick={nameHandler}
                                     >
                                         Sort by Name
                                     </button>
                                     <button
                                         className="btn btn-success"
-                                        onClick={priceSort}
+                                        onClick={priceHandler}
                                     >
                                         Sort by Price
                                     </button>
@@ -288,14 +432,23 @@ const Dashboard = () => {
                                                 <label className="control-label">
                                                     Price
                                                 </label>
-                                                <input
+                                                <CurrencyInput
+                                                    id="input-example"
+                                                    className="form-control"
+                                                    name="input-name"
+                                                    decimalsLimit={2}
+                                                    onChange={(e) =>
+                                                        setPrice(e.target.value)}
+                                                    // prefix="$"
+                                                />
+                                                {/* <input
                                                     type="number"
                                                     className="form-control"
                                                     onChange={(e) =>
                                                         setPrice(e.target.value)
                                                     }
                                                     value={price}
-                                                />
+                                                /> */}
                                                 <label htmlFor="">Date</label>
                                                 <input
                                                     type="date"
