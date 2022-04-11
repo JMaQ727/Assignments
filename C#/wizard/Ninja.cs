@@ -7,7 +7,7 @@ namespace wizard
         public Ninja(string n, int s, int i, int hp) : base(n, s, i, 175, hp)
         {
         }
-        public int Attack(Human target)
+        public override int Attack(Human target)
         {
             int dmg = dexterity * 5;
             Random rand = new Random();

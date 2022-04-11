@@ -8,6 +8,7 @@ namespace wizard
         public int strength;
         public int intelligence;
         public int dexterity;
+        public int maxHealth;
         private int health;
         public int Health
         {
@@ -29,10 +30,10 @@ namespace wizard
             dexterity = d;
             health = hp;
         }
-        public int Attack(Human target)
+        public virtual int Attack(Human target)
         {
             int dmg = strength * 3;
-            target.health -= dmg;
+            target.changeHealth(dmg);
             Console.WriteLine($"{name} attacked {target.name} for {dmg} damage!");
             return target.health;
         }

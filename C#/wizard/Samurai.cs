@@ -7,7 +7,7 @@ namespace wizard
         public Samurai(string n, int s, int i, int d) : base(n, s, i, d, 200)
         {
         }
-        public int Attack(Human target)
+        public override int Attack(Human target)
         {
             int dmg = strength * 3;
             if (target.Health < 50)
@@ -18,7 +18,7 @@ namespace wizard
             else 
             {
                 Console.WriteLine($"{name} attacked {target.name} for {dmg} damage!");
-                target.changeHealth(dmg);
+                base.Attack(target);
             }
             return dmg;
         }
