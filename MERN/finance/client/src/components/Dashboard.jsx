@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory, Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import {Chart as ChartJS } from 'chart.js/auto';
@@ -26,6 +26,9 @@ const Dashboard = () => {
     let [travelData, setTravelData] = useState([]);
     let [shopData, setShopData] = useState([]);
     let [groceryData, setGroceryData] = useState([]);
+    let [loaded, setLoaded] = useState(false);
+    const isMounted = useRef(false);
+    const isAlsoMounted = useRef(false);
     const history = useHistory();
     var moment = require('moment');
     useEffect(() => {
@@ -53,6 +56,20 @@ const Dashboard = () => {
                 history.push("/");
             });
     }, [refresh]);
+    useEffect(()=> {
+        if (isMounted.current) {
+            getCatSum();
+        } else {
+            isMounted.current = true;
+        }
+    },[transactions])
+    useEffect(()=> {
+        if (isAlsoMounted.current && isMounted.current && travelData.length > 0) {
+            wtf();
+        } else {
+            isAlsoMounted.current = true;
+        }
+    },[travelData])
     const wtf = () =>{
         setResData(resData.reduce((a,b)=>a + b, 0))
         setBillData(billData.reduce((a,b)=>a + b, 0))
@@ -70,7 +87,7 @@ const Dashboard = () => {
         console.log(shopData)
         console.log(groceryData)
     }
-    const getCatSum = async () => {
+    const getCatSum = () => {
         transactions.forEach((mapObj) =>{
             if (mapObj.category == "Bills") {
                 setBillData(billData => [...billData, mapObj.price])
