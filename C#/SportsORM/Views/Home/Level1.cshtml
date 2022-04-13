@@ -11,19 +11,103 @@
                 </ul>
             }
             <li>...all leagues where sport is any type of hockey</li>
+            @foreach (var j in ViewBag.HockeyLeague)
+            {
+                <ul>
+                    <li>@j.Name</li>
+                </ul>
+            }
             <li>...all leagues where sport is something OTHER THAN football</li>
+            @foreach (var j in ViewBag.NotFootball)
+            {
+                <ul>
+                    <li>@j.Name</li>
+                </ul>
+            }
             <li>...all leagues that call themselves "conferences"</li>
+            @foreach (var j in ViewBag.Test)
+            {
+                <ul>
+                    <li>@j.Name</li>
+                </ul>
+            }
             <li>...all leagues in the Atlantic region</li>
+            @foreach (var j in ViewBag.Atlantic)
+            {
+                <ul>
+                    <li>@j.Name</li>
+                </ul>
+            }
             <li>...all teams based in Dallas</li>
+            @foreach (var j in ViewBag.Dallas)
+            {
+                <ul>
+                    <li>@j.TeamName</li>
+                </ul>
+            }
             <li>...all teams named the Raptors</li>
+            @foreach (var j in ViewBag.Raptors)
+            {
+                <ul>
+                    <li>@j.Location @j.TeamName</li>
+                </ul>
+            }
             <li>...all teams whose location includes "City"</li>
+            @foreach (var j in ViewBag.LocCity)
+            {
+                <ul>
+                    <li>@j.Location @j.TeamName</li>
+                </ul>
+            }
             <li>...all teams whose names begin with "T"</li>
+            @foreach (var j in ViewBag.TeamT)
+            {
+                <ul>
+                    <li>@j.Location @j.TeamName</li>
+                </ul>
+            }
             <li>...all teams, ordered alphabetically by location</li>
+            @foreach (var j in ViewBag.AL)
+            {
+                <ul>
+                    <li>@j.Location @j.TeamName</li>
+                </ul>
+            }
             <li>...all teams, ordered by team name in reverse alphabetical order</li>
+            @foreach (var j in ViewBag.Reverse)
+            {
+                <ul>
+                    <li>@j.Location @j.TeamName</li>
+                </ul>
+            }
             <li>...every player with last name "Cooper"</li>
+            @foreach (var j in ViewBag.Cooper)
+            {
+                <ul>
+                    <li>@j.FirstName @j.LastName</li>
+                </ul>
+            }
             <li>...every player with first name "Joshua"</li>
+            @foreach (var j in ViewBag.Josh)
+            {
+                <ul>
+                    <li>@j.FirstName @j.LastName</li>
+                </ul>
+            }
             <li>...every player with last name "Cooper" EXCEPT those with "Joshua" as the first name</li>
+            @foreach (var j in ViewBag.JoshCoop)
+            {
+                <ul>
+                    <li>@j.FirstName @j.LastName</li>
+                </ul>
+            }
             <li>...all players with first name "Alexander" OR first name "Wyatt"</li>
+            @foreach (var j in ViewBag.AlexWyatt)
+            {
+                <ul>
+                    <li>@j.FirstName @j.LastName</li>
+                </ul>
+            }
         </ol>
     </div>
 </div>
