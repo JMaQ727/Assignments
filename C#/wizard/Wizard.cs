@@ -7,7 +7,7 @@ namespace wizard
         public Wizard(string n, int s, int d) : base(n, s, 25, d, 50)
         {
         }
-        public int Attack(Human target)
+        public override int Attack(Human target)
         {
             int dmg = intelligence * 5;
             target.changeHealth(dmg);
