@@ -1,0 +1,46 @@
+@model Dish;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>new crud</title>
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Add a new dish</h1>
+        <a href="/.." class="btn btn-primary">Home</a>
+        <div class="maincontent d-flex justify-content-between">
+            <form action="/dishes/update/@Model.DishId" method="post" class="form-group">
+                <label for="Chef">Chef</label>
+                <input asp-for="Chef" class="form-control">
+                <span asp-validation-for="Chef" class="text-danger"></span>
+                <label for="Name">Name</label>
+                <input asp-for="Name" class="form-control">
+                <span asp-validation-for="Name" class="text-danger"></span>
+                <label for="Calories">Calories</label>
+                <input asp-for="Calories" class="form-control">
+                <span asp-validation-for="Calories" class="text-danger"></span>
+                <label for="Tastiness">Tastiness</label>
+                <select asp-for="Tastiness" class="form-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <span asp-validation-for="Tastiness" class="text-danger"></span>
+                <div class="form-floating">
+                    <label for="Description">Description</label>
+                    <textarea name="Description" asp-for="Description" cols="30" rows="10" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-info">
+            </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

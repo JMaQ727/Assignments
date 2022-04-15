@@ -1,0 +1,30 @@
+﻿@model Dish;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cruddddd</title>
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Welcome to CRUDelicious</h1>
+        <div class="mainarea d-flex justify-content-between width">
+        <div class="left">
+            <h3>Check out some recent dishes!</h3>
+            <hr/>
+            @foreach (var i in ViewBag.AllDishes)
+            {
+                <p><a href="/dishes/view/@i.DishId">@i.Name</a> by @i.Chef</p>
+            }
+        </div>
+        <div class="right">
+            <a href="/new" class="btn btn-primary">Add a dish</a>
+        </div>
+        </div>
+    </div>
+
+</body>
+</html>
