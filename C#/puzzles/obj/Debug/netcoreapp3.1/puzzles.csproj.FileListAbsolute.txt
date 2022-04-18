@@ -1,4 +1,0 @@
-C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\puzzles\obj\Debug\netcoreapp3.1\puzzles.csprojAssemblyReference.cache
-C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\puzzles\obj\Debug\netcoreapp3.1\puzzles.AssemblyInfoInputs.cache
-C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\puzzles\obj\Debug\netcoreapp3.1\puzzles.AssemblyInfo.cs
-C:\Users\JMaQ\Documents\Coding_Dojo\Assignments\C#\puzzles\obj\Debug\netcoreapp3.1\puzzles.csproj.CoreCompileInputs.cache
