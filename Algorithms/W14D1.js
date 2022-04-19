@@ -29,7 +29,6 @@ class MinHeap {
     shiftUp() {
         // let's keep track of where our value is
         var idxOfValue = this.heap.length - 1;
-
         // Good to track if we have encountered idx 0 or are close to it
         while(idxOfValue > 1) {
             // We need to look at the parent
@@ -48,6 +47,32 @@ class MinHeap {
             }
         }
     }
+    extractTop() {
+        if (this.size == 0) {
+            return null
+        } else {
+            this.heap.splice(1,1)
+        }
+        return this.heap
+    }
+    shiftDown() {
+        this.heap.splice(1, 0, this.heap[this.heap.length - 1])
+        this.heap.splice((this.heap.length -1), 1)
+        let parent = 1
+        let firstChild = parent * 2
+        let secondChild = (parent * 2) + 1
+        while (this.heap[parent] > this.heap[firstChild] || this.heap[parent] > this.heap[secondChild]) {
+            if (this.heap[parent] > this.heap[firstChild]) {
+                [this.heap[parent], this.heap[firstChild]] = [this.heap[firstChild], this.heap[parent]]
+                parent = firstChild
+            }
+            if (this.heap[parent] > this.heap[secondChild]) {
+                [this.heap[parent], this.heap[secondChild]] = [this.heap[secondChild], this.heap[parent]]
+                parent = secondChild
+            }
+        }
+        return this.heap
+    }
 }
 
 var myHeap = new MinHeap();
@@ -58,3 +83,5 @@ myHeap.insert(9);
 myHeap.insert(1);
 console.log(myHeap.size());
 console.log(myHeap.heap);
+console.log("HERE", myHeap.extractTop())
+console.log(myHeap.shiftDown())
