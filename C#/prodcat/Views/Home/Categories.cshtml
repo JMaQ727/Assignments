@@ -1,0 +1,22 @@
+@model Product;
+
+<div class="text-center">
+    <h1><a href="/products">Products</a> | Categories</h1>
+    <div class="row">
+        <div class="col-6">
+            <h2>New Categories</h2>
+            <form action="/categories" method="post" class="form-group">
+                <label for="Name">Name</label>
+                <input asp-for="Name" class="form-control">
+                <input type="submit" value="Create" class="btn btn-primary mt-3">
+            </form>
+        </div>
+        <div class="col-6">
+            <h2>Existing Categories</h2>
+            @foreach (var j in ViewBag.AllCats)
+            {
+                <p>@j.Name</p>
+            }
+        </div>
+    </div>
+</div>

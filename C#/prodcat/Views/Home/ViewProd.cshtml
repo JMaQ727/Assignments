@@ -1,0 +1,40 @@
+@model Association;
+
+<div class="text-center">
+    <h1>@ViewBag.OneProd.Name</h1>
+    <div class="row">
+        <div class="col-6">
+            <h3>Categories</h3>
+            @foreach (Association w in ViewBag.OneProd.OfCats)
+            {
+                <p>@w.Category.Name</p>
+            }
+        </div>
+        <div class="col-6">
+            <form action="/ass/add" method="post">
+                <input type="hidden" asp-for="ProductId" value="@ViewBag.OneProd.ProductId">
+                <div class="form-group">
+                    <label for="Categories">Categories</label>
+                    <select asp-for="CategoryId" class="form-control">
+                        @foreach (var j in ViewBag.AllCats)
+                        {
+                            bool found = false;
+                            @foreach (Association a in ViewBag.OneProd.OfCats)
+                            {
+                                if(a.CategoryId == j.CategoryId)
+                                {
+                                    found = true;
+                                }
+                            }
+                            if(!found)
+                            {
+                                <option value="@j.CategoryId">@j.Name</option>
+                            }
+                        }
+                    </select>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

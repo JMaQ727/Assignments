@@ -1,0 +1,26 @@
+@model Product;
+
+<div class="text-center">
+    <h1>Products | <a href="/categories">Categories</a></h1>
+    <div class="row">
+        <div class="col-6">
+            <h2>New Product</h2>
+            <form action="" method="post" class="form-group">
+                <label for="Name">Name</label>
+                <input asp-for="Name" class="form-control">
+                <label for="Description">Description</label>
+                <input asp-for="Description" class="form-control">
+                <label for="Price">Price</label>
+                <input asp-for="Price" class="form-control">
+                <input type="submit" value="Create" class="btn btn-primary mt-3">
+            </form>
+        </div>
+        <div class="col-6">
+            <h2>Existing Products</h2>
+            @foreach (var j in ViewBag.AllProducts)
+            {
+                <a href="/products/@j.ProductId">@j.Name</a>
+            }
+        </div>
+    </div>
+</div>
