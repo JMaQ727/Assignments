@@ -92,7 +92,7 @@ class SinglyLinkedList {
         if (!this.contains(val)){
             return false;
         } else if(this.head.value == val) {
-            this.removeHead()
+            this.removeFront()
             return true
         } else{
             var runner = this.head;
@@ -127,6 +127,30 @@ class SinglyLinkedList {
             this.addToTail(sll[i])
         }
     }
+    reverse() {
+        var rev = []
+        var runner = this.head
+        while (runner != null) {
+            rev.push(runner.value)
+            runner = runner.next
+        }
+        var runner2 = this.head
+        var i = rev.length - 1
+        while (runner2 != null) {
+            runner2.value = rev[i]
+            runner2 = runner2.next
+            i--
+        }
+    }
+    removeNeg() {
+        var runner = this.head
+        while (runner != null) {
+            if (runner.value < 0) {
+                
+                runner = runner.next;
+            }
+        }
+    }
 }
 
 var new_sll = new SinglyLinkedList();
@@ -152,6 +176,15 @@ new_sll2.addToHead(8);
 new_sll2.display();
 new_sll.concat(new_sll2);
 new_sll.display();
+new_sll.reverse();
+new_sll.display();
+new_sll.addToHead(-4);
+new_sll.addToHead(9);
+new_sll.addToHead(-2);
+new_sll.display();
+new_sll.removeNeg();
+new_sll.display();
+
 
 // console.log(new_sll.contains(4)); // true
 // console.log(new_sll.contains(6)); // true
