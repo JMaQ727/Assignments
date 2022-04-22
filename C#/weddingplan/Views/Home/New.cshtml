@@ -1,0 +1,19 @@
+@model Wedding;
+
+<div class="text-center">
+    <h1>Plan Your Wedding</h1>
+    <a href="dashboard" class="btn btn-primary">Dashboard</a> <a href="" class="btn btn-danger">Logout</a>
+    <div class="form-group">
+        <form action="/new" method="post">
+            <label for="WedOne">Wedder One</label>
+            <input asp-for="WedOne" class="form-control">
+            <label for="WedTwo">Wedder Two</label>
+            <input asp-for="WedTwo" class="form-control">
+            <label for="Date">Date</label>
+            <input asp-for="Date" class="form-control">
+            <label for="Address">Address</label>
+            <input asp-for="Address" class="form-control">
+            <input type="submit" value="Submit" class="btn btn-success">
+        </form>
+    </div>
+</div>
