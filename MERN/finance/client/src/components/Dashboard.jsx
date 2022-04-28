@@ -2,11 +2,10 @@ import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory, Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-import {Chart as ChartJS } from 'chart.js/auto';
-import { Doughnut } from "react-chartjs-2";
-import CurrencyInput from 'react-currency-input-field';
+import { Chart as ChartJS } from "chart.js/auto";
+import { Doughnut, Bar } from "react-chartjs-2";
+import CurrencyInput from "react-currency-input-field";
 import { toast, ToastContainer } from "react-toastify";
-
 
 const Dashboard = () => {
     let [name, setName] = useState("");
@@ -16,23 +15,31 @@ const Dashboard = () => {
     let [refresh, setRefresh] = useState(false);
     let [loggedInUser, setLoggedInUser] = useState({});
     let [transactions, setTransactions] = useState([]);
+    let [monthTransactions, setMonthTransactions] = useState([]);
+    let oneMonthAgo = 0
+    let twoMonthAgo = 0
     let [formErrors, setFormErrors] = useState({});
     let [ns, setNs] = useState(false);
     let [ps, setPs] = useState(false);
-    let [billData, setBillData] = useState([]);
-    let [resData, setResData] = useState([]);
-    let [clothData, setClothData] = useState([]);
-    let [rentData, setRentData] = useState([]);
-    let [travelData, setTravelData] = useState([]);
-    let [shopData, setShopData] = useState([]);
-    let [groceryData, setGroceryData] = useState([]);
+    let [data1, setData1] = useState([]);
+    let [data2, setData2] = useState("");
+    let [data3, setData3] = useState("");
+    let [data4, setData4] = useState("");
+    let billTotal = 0;
+    let restaurantTotal = 0;
+    let clothTotal = 0;
+    let rentTotal = 0;
+    let travelTotal = 0;
+    let shopTotal = 0;
+    let groceryTotal = 0;
     let [loaded, setLoaded] = useState(false);
-    const isMounted = useRef(false);
-    const isAlsoMounted = useRef(false);
     const history = useHistory();
-    var moment = require('moment');
+    var moment = require("moment");
+    let currentMonth = moment().format("MMMM");
     useEffect(() => {
-        axios.get("http://localhost:8000/api/users/getLoggedInUser", {
+        setMonthTransactions([])
+        axios
+            .get("http://localhost:8000/api/users/getLoggedInUser", {
                 withCredentials: true,
             })
             .then((res) => {
@@ -45,7 +52,91 @@ const Dashboard = () => {
                     )
                     .then((res) => {
                         console.log("Retrieved users transactions", res);
-                        setTransactions(res.data.results);
+                        setTransactions(res.data.results.sort((a, b) => (a.date > b.date) ? -1 : 1));
+                        res.data.results.forEach((mapObj) => {
+                            if (
+                                mapObj.category === "Bills" &&
+                                moment(mapObj.date).format("MMMM") ===
+                                    currentMonth
+                            ) {
+                                billTotal += mapObj.price;
+                            }
+                            if (
+                                mapObj.category === "Clothing" &&
+                                moment(mapObj.date).format("MMMM") ===
+                                    currentMonth
+                            ) {
+                                clothTotal += mapObj.price;
+                            }
+                            if (
+                                mapObj.category === "Restaurants" &&
+                                moment(mapObj.date).format("MMMM") ===
+                                    currentMonth
+                            ) {
+                                restaurantTotal += mapObj.price;
+                            }
+                            if (
+                                mapObj.category === "Groceries" &&
+                                moment(mapObj.date).format("MMMM") ===
+                                    currentMonth
+                            ) {
+                                groceryTotal += mapObj.price;
+                            }
+                            if (
+                                mapObj.category === "Rent/Mortgage" &&
+                                moment(mapObj.date).format("MMMM") ===
+                                    currentMonth
+                            ) {
+                                rentTotal += mapObj.price;
+                            }
+                            if (
+                                mapObj.category === "Shopping" &&
+                                moment(mapObj.date).format("MMMM") ===
+                                    currentMonth
+                            ) {
+                                shopTotal += mapObj.price;
+                            }
+                            if (
+                                mapObj.category === "Travel" &&
+                                moment(mapObj.date).format("MMMM") ===
+                                    currentMonth
+                            ) {
+                                travelTotal += mapObj.price;
+                            }
+                            if (moment(mapObj.date).format("MMMM") === moment().subtract(1, 'month').format("MMMM")) {
+                                oneMonthAgo += mapObj.price;
+                            }
+                            if (moment(mapObj.date).format("MMMM") === moment().subtract(2, 'month').format("MMMM")) {
+                                twoMonthAgo += mapObj.price
+                            }
+                            if (
+                                moment(mapObj.date).format("MMMM") ===
+                                currentMonth
+                            ) {
+                                setMonthTransactions(monthTransactions => [...monthTransactions, mapObj]);
+                            }
+                        });
+                        setData1([
+                            billTotal,
+                            clothTotal,
+                            restaurantTotal,
+                            groceryTotal,
+                            rentTotal,
+                            shopTotal,
+                            travelTotal,
+                        ]);
+                        setData2(
+                            billTotal +
+                                clothTotal +
+                                restaurantTotal +
+                                groceryTotal +
+                                rentTotal +
+                                shopTotal +
+                                travelTotal
+                        );
+                        setData3(oneMonthAgo);
+                        setData4(twoMonthAgo);
+                        setLoaded(true);
                     })
                     .catch((err) => {
                         console.log("Error retrieveing user transactions", err);
@@ -56,94 +147,105 @@ const Dashboard = () => {
                 history.push("/");
             });
     }, [refresh]);
-    useEffect(()=> {
-        if (isMounted.current) {
-            getCatSum();
+    function displayChart() {
+        if (loaded === true) {
+            const data = {
+                labels: [
+                    "Bills",
+                    "Clothing",
+                    "Restaurants",
+                    "Groceries",
+                    "Rent/Mortgage",
+                    "Shopping",
+                    "Travel",
+                ],
+                datasets: [
+                    {
+                        label: "test",
+                        data: data1,
+                        backgroundColor: [
+                            "#d41f23",
+                            "#982890",
+                            "#77b862",
+                            "#50AF95",
+                            "#f3ba2f",
+                            "#2a71d0",
+                        ],
+                    },
+                ],
+            };
+            const options = {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                    text: "Bar + Line Chart",
+                    fontSize: 25,
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                },
+            };
+            return <Doughnut data={data} options={options} />;
         } else {
-            isMounted.current = true;
+            return "Loading...";
         }
-    },[transactions])
-    useEffect(()=> {
-        if (isAlsoMounted.current && isMounted.current && travelData.length > 0) {
-            wtf();
+    }
+
+    function displayChart2() {
+        if (loaded === true) {
+            const data = {
+                labels: [
+                    moment().subtract(2, "month").format("MMMM"),
+                    moment().subtract(1, "month").format("MMMM"),
+                    moment().format("MMMM"),
+                ],
+                datasets: [
+                    {
+                        label: "Total",
+                        data: [data4, data3, data2],
+                        backgroundColor: [
+                            "#50AF95",
+                            "#f3ba2f",
+                            "#2a71d0",
+                        ],
+                    },
+                ],
+            };
+            const options = {
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: true
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                    text: "Bar + Line Chart",
+                    fontSize: 25,
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                },
+            };
+            return <Bar data={data} options={options} />;
         } else {
-            isAlsoMounted.current = true;
-        }
-    },[travelData])
-    const wtf = () =>{
-        setResData(resData.reduce((a,b)=>a + b, 0))
-        setBillData(billData.reduce((a,b)=>a + b, 0))
-        setClothData(clothData.reduce((a,b)=>a + b, 0))
-        setRentData(rentData.reduce((a,b)=>a + b, 0))
-        setTravelData(travelData.reduce((a,b)=>a + b, 0))
-        setShopData(shopData.reduce((a,b)=>a + b, 0))
-        setGroceryData(groceryData.reduce((a,b)=>a + b, 0))
-        var totalSpending = (resData + billData + clothData + rentData + travelData + shopData + groceryData)
-        console.log(billData)
-        console.log(resData)
-        console.log(clothData)
-        console.log(rentData)
-        console.log(travelData)
-        console.log(shopData)
-        console.log(groceryData)
-    }
-    const getCatSum = () => {
-        transactions.forEach((mapObj) =>{
-            if (mapObj.category == "Bills") {
-                setBillData(billData => [...billData, mapObj.price])
-            }
-            if (mapObj.category == "Clothing") {
-                setClothData(clothData => [...clothData, mapObj.price])
-            }
-            if (mapObj.category == "Restaurants") {
-                setResData(resData => [...resData, mapObj.price]);
-            }
-            if (mapObj.category == "Groceries") {
-                setGroceryData(groceryData => [...groceryData, mapObj.price])
-            }
-            if (mapObj.category == "Rent/Mortgage") {
-                setRentData(rentData => [...rentData, mapObj.price])
-            }
-            if (mapObj.category == "Shopping") {
-                setShopData(shopData => [...shopData, mapObj.price])
-            }
-            if (mapObj.category == "Travel") {
-                setTravelData(travelData => [...travelData, mapObj.price])
-            }
-        })
-    }
-    const data = {
-        labels: ["Bills", "Clothing", "Restaurants", "Groceries", "Rent/Mortgage", "Shopping", "Travel"],
-        datasets: [{
-            label: "test",
-            data: [billData, clothData, resData, groceryData, rentData, shopData, travelData],
-            backgroundColor: ["rgba(87, 121, 234, 0.6)", "rgba(87, 121, 234, 0.6)", "#ecf0f1", "#50AF95", "#f3ba2f", "#2a71d0"]
-        }]
-    }
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false, 
-        // animation: {
-        //     duration: 3000,
-        //     easing: "easeInBounce",
-        // },
-        title: {
-            display: true,
-            text: "Bar + Line Chart",
-            fontSize: 25,
-        },
-        plugins:{
-            legend: {
-                display: false
-            }
+            return "Loading...";
         }
     }
-    const theChart = () => {
-        return (
-            <Doughnut data={data} options={options}/>
-            
-        )
-    }
+
     const notify = () => {
         toast.success("Successfully uploaded transaction.", {
             position: "top-center",
@@ -185,6 +287,17 @@ const Dashboard = () => {
                 console.log("Error creating user", err);
             });
     };
+    const deleteT = (e, id) => {
+        e.preventDefault();
+        axios.delete(`http://localhost:8000/api/transactions/${id}`)
+        .then((res) => {
+            console.log("Successfully deleted transaction", res)
+            setRefresh(!refresh);
+        })
+        .catch((err) =>{
+            console.log("Error deleting transaction", err)
+        })
+    }
     const logout = () => {
         axios
             .get("http://localhost:8000/api/users/logout", {
@@ -198,92 +311,115 @@ const Dashboard = () => {
             });
     };
     const nameSort = () => {
-        let nameSortedData = [...transactions].sort((a, b) => {
+        let nameSortedData = [...monthTransactions].sort((a, b) => {
             return a.name.charAt(0).toUpperCase() >
                 b.name.charAt(0).toUpperCase()
                 ? 1
                 : -1;
         });
-        setTransactions(nameSortedData);
+        setMonthTransactions(nameSortedData);
     };
     const reverseNameSort = () => {
-        let nameSortedData = [...transactions].sort((a, b) => {
+        let nameSortedData = [...monthTransactions].sort((a, b) => {
             return a.name.charAt(0).toUpperCase() >
                 b.name.charAt(0).toUpperCase()
                 ? -1
                 : 1;
         });
-        setTransactions(nameSortedData);
+        setMonthTransactions(nameSortedData);
     };
     const nameHandler = () => {
-        if (ns == false) {
+        if (ns === false) {
             nameSort();
             setNs(true);
-        } 
-        else {
+        } else {
             reverseNameSort();
             setNs(false);
         }
-    }
+    };
     const priceSort = () => {
-        let priceSortedData = [...transactions].sort((a, b) => {
+        let priceSortedData = [...monthTransactions].sort((a, b) => {
             return a.price > b.price ? 1 : -1;
         });
-        setTransactions(priceSortedData);
-        
+        setMonthTransactions(priceSortedData);
     };
     const reversePriceSort = () => {
-        let priceSortedData = [...transactions].sort((a, b) => {
+        let priceSortedData = [...monthTransactions].sort((a, b) => {
             return a.price > b.price ? -1 : 1;
         });
-        setTransactions(priceSortedData);
-        
+        setMonthTransactions(priceSortedData);
     };
     const priceHandler = () => {
-        if (ps == false) {
+        if (ps === false) {
             priceSort();
             setPs(true);
-        } 
-        else {
+        } else {
             reversePriceSort();
             setPs(false);
         }
-    }
+    };
     const [pageNumber, setPageNumber] = useState(0);
     const usersPerPage = 10;
     const pagesVisited = pageNumber * usersPerPage;
-    const pageCount = Math.ceil(transactions.length / usersPerPage);
-    const displayTransactions = transactions
+    // const testTrans = transactions.filter(transaction => moment(transaction.date).format("MMMM") === currentMonth).length
+    const pageCount = Math.ceil(monthTransactions.length / usersPerPage);
+    const displayTransactions = monthTransactions
         .slice(pagesVisited, pagesVisited + usersPerPage)
         .map((tObj) => {
-            return (
-                <>
-                    <div className="d-flex justify-content-between align-items-center">
-                        <p style={{ fontSize: "30px" }}>
-                            <b>
-                                {tObj.name.charAt(0).toUpperCase() +
-                                    tObj.name.slice(1)}
-                            </b>
-                        </p>
-                        <div className="pricedel d-flex align-items-center">
+            if (loaded) {
+                return (
+                    <>
+                        <div className="d-flex justify-content-between align-items-center">
                             <p style={{ fontSize: "30px" }}>
-                                ${(Math.round(tObj.price * 100) / 100).toFixed(2)}
+                                <b>
+                                    {tObj.name.charAt(0).toUpperCase() +
+                                        tObj.name.slice(1)}
+                                </b>
                             </p>
-                            <a href="#" className="material-icons-outlined" style={{fontSize: "12px", textDecoration: "none"}}>delete</a>
+                            <div className="pricedel d-flex align-items-center">
+                                <p style={{ fontSize: "30px" }}>
+                                    $
+                                    {(
+                                        Math.round(tObj.price * 100) / 100
+                                    ).toFixed(2)}
+                                </p>
+                                <a
+                                    href="#"
+                                    className="material-icons-outlined"
+                                    style={{
+                                        fontSize: "12px",
+                                        textDecoration: "none",
+                                    }}
+                                    onClick={(e)=>deleteT(e,tObj._id)}
+                                >
+                                    delete
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div className="mb-3 d-flex justify-content-between align-items-center">
-                        <p>
-                            <em>{tObj.category}</em>
-                        </p>
-                        <div className="editdate d-flex align-items-center">
-                            <p>{moment(tObj.date).format("MMMM Do, YYYY")}</p>
-                            <a href="#" className="material-icons-outlined" style={{fontSize: "12px", textDecoration: "none"}}>mode_edit</a>
+                        <div className="mb-3 d-flex justify-content-between align-items-center">
+                            <p>
+                                <em>{tObj.category}</em>
+                            </p>
+                            <div className="editdate d-flex align-items-center">
+                                <p>
+                                    {moment(tObj.date).format("MMMM Do, YYYY")}
+                                </p>
+                                <a
+                                    href="#"
+                                    className="material-icons-outlined"
+                                    style={{
+                                        fontSize: "12px",
+                                        textDecoration: "none",
+                                    }}
+                                >
+                                    mode_edit
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <hr />
-                </>
-            );
+                        <hr />
+                    </>
+                );
+            }
         });
     const changePage = ({ selected }) => {
         setPageNumber(selected);
@@ -308,17 +444,22 @@ const Dashboard = () => {
                     <div className="top d-inline-flex">
                         <ToastContainer />
                         <h1>Welcome {loggedInUser.firstname}</h1>
-                        <div className="boxholder d-flex justify-content-between">
-                            <div className="float d-flex justify-content-center align-items-center float1">
-                                {theChart()}
+                        <div className="boxholder">
+                            <div className="float d-flex justify-content-center align-items-center float1 d-flex flex-wrap">
+                                {displayChart()}
                             </div>
-                            <div className="float d-flex justify-content-center align-items-center float2">
-                                <button onClick={getCatSum}>TEST</button>
-                                {/* {totalSpending? <p>{totalSpending}</p> : ""} */}
+                            <div className="float d-flex justify-content-center align-items-center float2 d-flex flex-wrap text-center">
+                                <h3>
+                                    Current Spending in{" "}
+                                    {moment().format("MMMM")}
+                                </h3>
+                                <h3>
+                                    $
+                                    {(Math.round(data2 * 100) / 100).toFixed(2)}
+                                </h3>
                             </div>
                             <div className="float d-flex justify-content-center align-items-center float3">
-                                <button onClick={wtf}>we were gucci</button>
-                                <p>bar chart of monthly total spending</p>
+                                {displayChart2()}
                             </div>
                         </div>
                     </div>
@@ -326,7 +467,7 @@ const Dashboard = () => {
                     <div className="bottom d-flex justify-content-center">
                         <div className="contentsquare">
                             <div className="contenttop d-flex justify-content-between">
-                                <h3>Transactions</h3>
+                                <h2>{moment().format("MMMM")} Transactions</h2>
                                 <div className="sorting d-flex">
                                     <button
                                         className="btn btn-success"
@@ -455,7 +596,8 @@ const Dashboard = () => {
                                                     name="input-name"
                                                     decimalsLimit={2}
                                                     onChange={(e) =>
-                                                        setPrice(e.target.value)}
+                                                        setPrice(e.target.value)
+                                                    }
                                                     // prefix="$"
                                                 />
                                                 {/* <input

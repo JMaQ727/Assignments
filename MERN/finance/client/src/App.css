@@ -43,7 +43,7 @@
 
 .left {
     width: 250px;
-    min-height: 300px;
+    align-self: stretch;
     background-color: #3c689b;
     padding: 1em;
 }
@@ -90,27 +90,32 @@
     min-height: 300px;
 }
 
+.boxholder {
+    position: relative;
+}
+
 .float {
     width: 275px;
-    height: 200px;
+    height: 220px;
+    padding: 1em;
     background-color: white;
     box-shadow: rgba(99, 99, 99, 0.35) 0px 5px 15px;
     position: absolute;
 }
 
 .float1 {
-    left: 52px;
-    top: 120px;
+    right: 205px;
+    top: 115px;
 }
 
 .float2 {
-    right: 385px;
-    top: 120px;
+    right: -130px;
+    top: 115px;
 }
 
 .float3 {
-    right: 52px;
-    top: 120px;
+    left: 188px;
+    top: 115px;
 }
 
 .contentsquare {
