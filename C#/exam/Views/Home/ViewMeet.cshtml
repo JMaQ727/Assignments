@@ -1,0 +1,62 @@
+@model MeetUp;
+
+<div class="container">
+    <div class="header d-flex justify-content-between align-items-center">
+        <h1>Dojo Meet Up Center</h1>
+        <div class="buttons d-flex">
+            <a href="/MeetUp" class="btn btn-primary mr-3">Home</a>
+            <a href="/" class="btn btn-info">Log Out</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h2>@ViewBag.OneMeeting.Title</h2>
+            </div>
+            <div class="card-body">
+                <h3>Event Coordinator:</h3>
+                <p>@ViewBag.Coordinator.Meeter.Name</p>
+                <h3>Description:</h3>
+                <p>@ViewBag.OneMeeting.Description</p>
+                <h3>Participants:</h3>
+                @foreach (var k in ViewBag.OneMeeting.MeetingUsers)
+                {
+                    <p>@k.User.Name</p>
+                }
+                @{
+                    if (ViewBag.OneMeeting.UserId == ViewBag.LoggedInUser)
+                    {
+                        <form action="/meetups/delete/@ViewBag.OneMeeting.MeetUpId" method="post">
+                                <input type="hidden" asp-for="MeetUpId" value="@ViewBag.OneMeeting.MeetUpId">
+                                <input type="submit" value="Delete" class="btn btn-danger">
+                            </form>
+                    } else {
+                        bool found = false;
+                        foreach (Rsvp Guest in ViewBag.OneMeeting.MeetingUsers)
+                        {
+                            if (Guest.UserId == ViewBag.LoggedInUser)
+                                {
+                                    found = true;
+                                }
+                        }
+                            if (found) {
+                                <form action="/meetups/update/@ViewBag.OneMeeting.MeetUpId" method="post">
+                                    <input type="hidden" asp-for="UserId" value="@ViewBag.LoggedInUser">
+                                    <input type="hidden" asp-for="MeetUpId" value="@ViewBag.OneMeeting.MeetUpId">
+                                    <input type="submit" value="Un-RSVP" class="btn btn-secondary">
+                                </form>
+                            } else {
+                                <form action="/meetups/rsvp" method="post">
+                                    <input type="hidden" asp-for="UserId" value="@ViewBag.LoggedInUser">
+                                    <input type="hidden" asp-for="MeetUpId" value="@ViewBag.OneMeeting.MeetUpId">
+                                    <input type="submit" value="RSVP" class="btn btn-success">
+                                </form>
+                            }
+                        }
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
