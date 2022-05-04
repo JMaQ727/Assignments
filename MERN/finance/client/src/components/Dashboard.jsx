@@ -1,11 +1,20 @@
 import axios from "axios";
-import React, { useState, useEffect, useRef } from "react";
-import { useHistory, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Doughnut, Bar } from "react-chartjs-2";
 import CurrencyInput from "react-currency-input-field";
 import { toast, ToastContainer } from "react-toastify";
+import { Menu, MenuItem, MenuButton, SubMenu } from '@szhsin/react-menu';
+import '@szhsin/react-menu/dist/index.css';
+import '@szhsin/react-menu/dist/transitions/slide.css';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { setRef } from "@mui/material";
 
 const Dashboard = () => {
     let [name, setName] = useState("");
@@ -16,6 +25,7 @@ const Dashboard = () => {
     let [loggedInUser, setLoggedInUser] = useState({});
     let [transactions, setTransactions] = useState([]);
     let [monthTransactions, setMonthTransactions] = useState([]);
+    let [mT, setMT] = useState([]);
     let oneMonthAgo = 0
     let twoMonthAgo = 0
     let [formErrors, setFormErrors] = useState({});
@@ -25,6 +35,14 @@ const Dashboard = () => {
     let [data2, setData2] = useState("");
     let [data3, setData3] = useState("");
     let [data4, setData4] = useState("");
+    let [filteredBills, setFilteredBills] = useState(false);
+    let [filteredCloth, setFilteredCloth] = useState(false);
+    let [filteredGroc, setFilteredGroc] = useState(false);
+    let [filteredRent, setFilteredRent] = useState(false);
+    let [filteredRes, setFilteredRes] = useState(false);
+    let [filteredShop, setFilteredShop] = useState(false);
+    let [filteredTravel, setFilteredTravel] = useState(false);
+    let [monthCategories, setMonthCategories] = useState([]);
     let billTotal = 0;
     let restaurantTotal = 0;
     let clothTotal = 0;
@@ -38,6 +56,7 @@ const Dashboard = () => {
     let currentMonth = moment().format("MMMM");
     useEffect(() => {
         setMonthTransactions([])
+        setMonthCategories([])
         axios
             .get("http://localhost:8000/api/users/getLoggedInUser", {
                 withCredentials: true,
@@ -56,70 +75,71 @@ const Dashboard = () => {
                         res.data.results.forEach((mapObj) => {
                             if (
                                 mapObj.category === "Bills" &&
-                                moment(mapObj.date).format("MMMM") ===
+                                moment(mapObj.date).utc().format("MMMM") ===
                                     currentMonth
                             ) {
                                 billTotal += mapObj.price;
                             }
                             if (
                                 mapObj.category === "Clothing" &&
-                                moment(mapObj.date).format("MMMM") ===
+                                moment(mapObj.date).utc().format("MMMM") ===
                                     currentMonth
                             ) {
                                 clothTotal += mapObj.price;
                             }
                             if (
                                 mapObj.category === "Restaurants" &&
-                                moment(mapObj.date).format("MMMM") ===
+                                moment(mapObj.date).utc().format("MMMM") ===
                                     currentMonth
                             ) {
                                 restaurantTotal += mapObj.price;
                             }
                             if (
                                 mapObj.category === "Groceries" &&
-                                moment(mapObj.date).format("MMMM") ===
+                                moment(mapObj.date).utc().format("MMMM") ===
                                     currentMonth
                             ) {
                                 groceryTotal += mapObj.price;
                             }
                             if (
                                 mapObj.category === "Rent/Mortgage" &&
-                                moment(mapObj.date).format("MMMM") ===
+                                moment(mapObj.date).utc().format("MMMM") ===
                                     currentMonth
                             ) {
                                 rentTotal += mapObj.price;
                             }
                             if (
                                 mapObj.category === "Shopping" &&
-                                moment(mapObj.date).format("MMMM") ===
+                                moment(mapObj.date).utc().format("MMMM") ===
                                     currentMonth
                             ) {
                                 shopTotal += mapObj.price;
                             }
                             if (
                                 mapObj.category === "Travel" &&
-                                moment(mapObj.date).format("MMMM") ===
+                                moment(mapObj.date).utc().format("MMMM") ===
                                     currentMonth
                             ) {
                                 travelTotal += mapObj.price;
                             }
-                            if (moment(mapObj.date).format("MMMM") === moment().subtract(1, 'month').format("MMMM")) {
+                            if (moment(mapObj.date).utc().format("MMMM") === moment().subtract(1, 'month').utc().format("MMMM")) {
                                 oneMonthAgo += mapObj.price;
                             }
-                            if (moment(mapObj.date).format("MMMM") === moment().subtract(2, 'month').format("MMMM")) {
+                            if (moment(mapObj.date).utc().format("MMMM") === moment().subtract(2, 'month').utc().format("MMMM")) {
                                 twoMonthAgo += mapObj.price
                             }
-                            if (
-                                moment(mapObj.date).format("MMMM") ===
-                                currentMonth
-                            ) {
+                            if (moment(mapObj.date).utc().format("MMMM") === currentMonth) {
                                 setMonthTransactions(monthTransactions => [...monthTransactions, mapObj]);
+                                setMT(mT => [...mT, mapObj]);
+                            }
+                            if (moment(mapObj.date).utc().format("MMMM") === currentMonth && monthCategories.includes(mapObj.category) === false) {
+                                setMonthCategories(monthCategories => [...monthCategories, mapObj.category])
                             }
                         });
                         setData1([
                             billTotal,
                             clothTotal,
-                            restaurantTotal,
+                            restaurantTotal.toFixed(2),
                             groceryTotal,
                             rentTotal,
                             shopTotal,
@@ -147,6 +167,11 @@ const Dashboard = () => {
                 history.push("/");
             });
     }, [refresh]);
+    const darkTheme = createTheme({
+        palette: {
+            mode: 'dark',
+        },
+    });
     function displayChart() {
         if (loaded === true) {
             const data = {
@@ -328,15 +353,6 @@ const Dashboard = () => {
         });
         setMonthTransactions(nameSortedData);
     };
-    const nameHandler = () => {
-        if (ns === false) {
-            nameSort();
-            setNs(true);
-        } else {
-            reverseNameSort();
-            setNs(false);
-        }
-    };
     const priceSort = () => {
         let priceSortedData = [...monthTransactions].sort((a, b) => {
             return a.price > b.price ? 1 : -1;
@@ -349,19 +365,13 @@ const Dashboard = () => {
         });
         setMonthTransactions(priceSortedData);
     };
-    const priceHandler = () => {
-        if (ps === false) {
-            priceSort();
-            setPs(true);
-        } else {
-            reversePriceSort();
-            setPs(false);
-        }
-    };
+    const filterByCat = (e, category) => {
+        setMonthTransactions(mT.filter(monthTransaction => monthTransaction.category === category))
+        
+    }
     const [pageNumber, setPageNumber] = useState(0);
     const usersPerPage = 10;
     const pagesVisited = pageNumber * usersPerPage;
-    // const testTrans = transactions.filter(transaction => moment(transaction.date).format("MMMM") === currentMonth).length
     const pageCount = Math.ceil(monthTransactions.length / usersPerPage);
     const displayTransactions = monthTransactions
         .slice(pagesVisited, pagesVisited + usersPerPage)
@@ -402,7 +412,7 @@ const Dashboard = () => {
                             </p>
                             <div className="editdate d-flex align-items-center">
                                 <p>
-                                    {moment(tObj.date).format("MMMM Do, YYYY")}
+                                    {moment(tObj.date).utc().format("MMMM Do, YYYY")}
                                 </p>
                                 <a
                                     href="#"
@@ -430,9 +440,16 @@ const Dashboard = () => {
                 <div className="left">
                     <div className="leftcontent d-flex flex-column justify-content-between">
                         <img src="/images/logo.png" alt="" />
-                        <div className="leftcontentnav d-flex flex-column mt-3 mb-3 ms-3">
-                            <p>Dashboard</p>
-                            <p>Something Else</p>
+                        <div className="leftcontentnav d-flex flex-column mt-3 mb-3">
+                        <ThemeProvider theme={darkTheme}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <DashboardIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Dashboard" />
+                            </ListItemButton>
+                        </ThemeProvider>
+                            <p>Transactions</p>
                             <p>Settings</p>
                         </div>
                         <button className="btn btn-secondary" onClick={logout}>
@@ -469,27 +486,30 @@ const Dashboard = () => {
                             <div className="contenttop d-flex justify-content-between">
                                 <h2>{moment().format("MMMM")} Transactions</h2>
                                 <div className="sorting d-flex">
+                                <Menu menuButton={<button className="btn btn-success">Filter by</button>} transition>
+                                    <SubMenu label="Price">
+                                        <MenuItem onClick={priceSort}>Ascending</MenuItem>
+                                        <MenuItem onClick={reversePriceSort}>Descending</MenuItem>
+                                    </SubMenu>
+                                    <SubMenu label="Category">
+                                        <MenuItem type="checkbox" checked={filteredBills} onClick={(e)=>filterByCat(e, "Bills")}>Bills</MenuItem>
+                                        <MenuItem type="checkbox" checked={filteredCloth} onClick={(e)=>filterByCat(e, "Clothing")}>Clothing</MenuItem>
+                                        <MenuItem type="checkbox" checked={filteredGroc} onClick={(e)=>filterByCat(e, "Groceries")}>Groceries</MenuItem>
+                                        <MenuItem type="checkbox" checked={filteredRent} onClick={(e)=>filterByCat(e, "Rent/Mortgage")}>Rent/Mortgage</MenuItem>
+                                        <MenuItem type="checkbox" checked={filteredRes} onClick={(e)=>filterByCat(e, "Restaurants")}>Restaurants</MenuItem>
+                                        <MenuItem type="checkbox" checked={filteredShop} onClick={(e)=>filterByCat(e, "Shopping")}>Shopping</MenuItem>
+                                        <MenuItem type="checkbox" checked={filteredTravel} onClick={(e)=>filterByCat(e, "Travel")}>Travel</MenuItem>
+                                    </SubMenu>
+                                </Menu>
                                     <button
-                                        className="btn btn-success"
-                                        onClick={nameHandler}
-                                    >
-                                        Sort by Name
-                                    </button>
-                                    <button
-                                        className="btn btn-success"
-                                        onClick={priceHandler}
-                                    >
-                                        Sort by Price
-                                    </button>
-                                </div>
-                                <button
                                     type="button"
                                     className="btn btn-primary"
                                     data-toggle="modal"
                                     data-target="#exampleModal"
                                 >
-                                    Upload
+                                    Add
                                 </button>
+                                </div>
                             </div>
                             <div className="contentdata">
                                 {displayTransactions}
