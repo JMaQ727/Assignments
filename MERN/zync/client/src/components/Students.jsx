@@ -4,7 +4,7 @@ import axios from "axios";
 const Students = () => {
     let [student, setStudent] = useState([]);
     let [loaded, setLoaded] = useState(false);
-    let [hide, setHide] = useState(true);
+    let [hide, setHide] = useState([]);
     let [searchTerm, setSearchTerm] = useState("")
     let [searchTag, setSearchTag] = useState("")
     const fetchData = async () => {
@@ -14,12 +14,22 @@ const Students = () => {
         setStudent(response.data.students);
         setLoaded(true);
     };
+    const updateHide = (e, index) => {
+        e.preventDefault();
+        let newHide = [...hide]
+        newHide[index] = !newHide[index]
+        setHide(newHide)
+    }
     useEffect(() => {
         fetchData();
+        const hideObj = []
+        for (var i = 0; i < student.length; i++) {
+            hideObj.push(true)
+        }
+        setHide(hideObj)
     }, []);
     console.log(student);
-    console.log(hide, "TST")
-    console.log(hide[1],"AY?")
+    console.log("WOoRK", hide);
     return (
         <>
             <div className="container">
@@ -39,20 +49,20 @@ const Students = () => {
                                 <img src={`${obj.pic}`} alt="Student Profile" />
                             </div>
                             <div className="center">
-                                <h1>{idx} {obj.firstName.toUpperCase()} {obj.lastName.toUpperCase()}</h1>
+                                <h1>{obj.firstName.toUpperCase()} {obj.lastName.toUpperCase()}</h1>
                                 <p>Email: {obj.email}</p>
                                 <p>Company: {obj.company}</p>
                                 <p>Skill: {obj.skill} {obj.grades}</p>
                                 <p>Average: {(obj.grades.map(Number).reduce((a,b) => a + b, 0)) / obj.grades.length}%</p>
-                                {hide === false? obj.grades.map((gradeObj, idx) => {
+                                {hide[idx] === false? obj.grades.map((gradeObj, idx) => {
                                     return (
                                     <p>Test {idx + 1}: {gradeObj}%</p>
                                     )}) : null}
-                                <button>tag1</button><br/>
+                                <button>tag1</button><button>tag2</button><br/>
                                 <input type="text" id="tag" placeholder="Add a tag" />
                             </div>
                             <div className="right">
-                                {hide === false? <button onClick={(e) => setHide(!hide)}>-</button> : <button onClick={(e) => setHide(!hide)}>+</button> }                     
+                                {hide[idx] === false? <button onClick={(e) => updateHide(e,idx)}>-</button> : <button onClick={(e) => updateHide(e,idx)}>+</button> }                     
                             </div>
                         </div>);
                     })
