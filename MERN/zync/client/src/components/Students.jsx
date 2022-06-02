@@ -4,7 +4,7 @@ import axios from "axios";
 const Students = () => {
     let [student, setStudent] = useState([]);
     let [loaded, setLoaded] = useState(false);
-    let [hide, setHide] = useState([]);
+    let [hide, setHide] = useState(false);
     let [newTag, setNewTag] = useState("");
     let [searchName, setSearchName] = useState("");
     let [searchTag, setSearchTag] = useState("");
@@ -13,15 +13,16 @@ const Students = () => {
             "https://api.hatchways.io/assessment/students"
         );
         setStudent(response.data.students);
-        setHide(response.data.students.map(student => true));
+        response.data.students.map(student => {
+            student.hide = true
+        });
         setLoaded(true);
     };
     const updateHide = (e, index) => {
         e.preventDefault();
-        let newHide = [...hide]
-        newHide[index] = !newHide[index]
-        setHide(newHide)
-    };
+        student[index].hide = !student[index].hide
+        setHide(!hide)
+    };  
     const submitHandler = (e, index) => {
         e.preventDefault();
         if ("tag" in student[index] === true) {
@@ -61,7 +62,7 @@ const Students = () => {
                                 <p>Company: {obj.company}</p>
                                 <p>Skill: {obj.skill}</p>
                                 <p>Average: {(obj.grades.map(Number).reduce((a,b) => a + b, 0)) / obj.grades.length}%</p>
-                                {hide[idx] === false? obj.grades.map((gradeObj, idx) => {
+                                {obj.hide === false? obj.grades.map((gradeObj, idx) => {
                                     return (
                                         <p key={idx}>Test {idx + 1}: {gradeObj}%</p>
                                     )}) : null}
@@ -75,7 +76,7 @@ const Students = () => {
                                 </form>
                             </div>
                             <div className="right">
-                                {hide[idx] === false? <button onClick={(e) => updateHide(e,idx)}>-</button> : <button onClick={(e) => updateHide(e,idx)}>+</button> }
+                                {obj.hide === false? <button onClick={(e) => updateHide(e,idx)}>-</button> : <button onClick={(e) => updateHide(e,idx)}>+</button> }
                             </div>
                         </div>);
                     })
