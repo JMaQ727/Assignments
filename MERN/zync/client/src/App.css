@@ -5,13 +5,33 @@
   box-sizing: border-box;
 }
 
-.App {
+#root {
+  height: 100%;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.App {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  border: 1px solid darkslategray;
+  border-radius: 5px;
   width: 800px;
+  height: 600px;
+  overflow: auto;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
 }
 
 .student {
@@ -75,7 +95,7 @@
   outline: none;
 }
 
-#tag {
+#thetag {
   margin: 0px 0px 0px 20px;
   outline: 0;
   border-width: 0 0 2px;
@@ -84,7 +104,7 @@
   height: 40px;
 }
 
-#tag:focus {
+#thetag:focus {
   border-bottom: 2px solid black;
   outline: none;
 }
