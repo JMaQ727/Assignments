@@ -52,7 +52,7 @@ const Students = () => {
                                 <h1>{obj.firstName.toUpperCase()} {obj.lastName.toUpperCase()}</h1>
                                 <p>Email: {obj.email}</p>
                                 <p>Company: {obj.company}</p>
-                                <p>Skill: {obj.skill} {obj.grades}</p>
+                                <p>Skill: {obj.skill}</p>
                                 <p>Average: {(obj.grades.map(Number).reduce((a,b) => a + b, 0)) / obj.grades.length}%</p>
                                 {hide[idx] === false? obj.grades.map((gradeObj, idx) => {
                                     return (
