@@ -40,16 +40,14 @@ const Students = () => {
         <>
             <div className="container">
                 <input type="text" id="search" placeholder="Search by name" onChange={(e) => setSearchName(e.target.value)} />
-                <input type="text" id="search" placeholder="Search by tag" onChange={(e) => setSearchTag(e.target.value)}/>
+                <input type="text" id="search" placeholder="Search by tag" onChange={(e) => setSearchName(e.target.value)}/>
                 {loaded
                     ? student.filter((val) => {
                         if (searchName === "") {
                             return val
-                        } else if (val.firstName.toLowerCase().includes(searchName.toLowerCase()) || val.lastName.toLowerCase().includes(searchName.toLowerCase())) {
+                        } else if (val.firstName.toLowerCase().includes(searchName.toLowerCase()) || val.lastName.toLowerCase().includes(searchName.toLowerCase()) || val.tag?.toString().toLowerCase().includes(searchName.toLowerCase())) {
                             return val
-                        } else if (val.tag === true && val.tag.toLowerCase().includes(searchTag.toLowerCase())) {
-                            return val
-                        }
+                        } 
                     }).map((obj, idx) => {
                         return (
                         <div key={idx} className="student">
