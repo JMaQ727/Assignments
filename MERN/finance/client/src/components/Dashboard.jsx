@@ -440,15 +440,8 @@ const Dashboard = () => {
                 <div className="left">
                     <div className="leftcontent d-flex flex-column justify-content-between">
                         <img src="/images/logo.png" alt="" />
-                        <div className="leftcontentnav d-flex flex-column mt-3 mb-3">
-                        <ThemeProvider theme={darkTheme}>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <DashboardIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Dashboard" />
-                            </ListItemButton>
-                        </ThemeProvider>
+                        <div className="leftcontentnav d-flex flex-column mt-3 mb-3 align-items-center">
+                            <p>Dashboard</p>
                             <p>Transactions</p>
                             <p>Settings</p>
                         </div>
